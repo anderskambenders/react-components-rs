@@ -10,7 +10,7 @@
     "pretty": "prettier ./src --write",
     "preview": "vite preview",
     "prepare": "husky install",
-    "format:fix": "yarn prettier . --write"
+    "format:fix": "prettier . --write"
   },
   "husky": {
     "hooks": {
@@ -22,7 +22,7 @@
       "eslint --fix"
     ],
     "src/*": [
-      "prettier --write"
+      "prettier . --write"
     ]
   },
   "author": "",
