@@ -1,11 +1,9 @@
-import Search from './components/search/search/Search';
-import { ListResult } from './components/search/list-result/ListResult';
+import MainPage from './pages/MainPage';
 
 function App() {
   return (
     <>
-      <Search />
-      <ListResult />
+      <MainPage />
     </>
   );
 }

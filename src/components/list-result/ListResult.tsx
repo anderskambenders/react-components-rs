@@ -1,13 +1,13 @@
 import { Component } from 'react';
-import { Character } from '../../types';
-
-type Props = {
-  children?: JSX.Element;
-  data?: number;
-};
+import { Character } from '../types';
 
 type State = {
   items: Array<Character>;
+};
+
+type Props = {
+  children?: JSX.Element;
+  data?: string;
 };
 
 export class ListResult extends Component<Props, State> {
@@ -19,7 +19,10 @@ export class ListResult extends Component<Props, State> {
   }
 
   async getData() {
-    const url = 'https://swapi.dev/api/people/';
+    const url = this.props.data
+      ? `https://swapi.dev/api/people/?search=${this.props.data}`
+      : 'https://swapi.dev/api/people/';
+    console.log(url);
     const response = await fetch(url);
     const result = await response.json();
     this.setState({
@@ -29,6 +32,13 @@ export class ListResult extends Component<Props, State> {
 
   componentDidMount() {
     this.getData();
+  }
+
+  componentDidUpdate(prevProps: { data: string | undefined }): void {
+    if (this.props.data !== prevProps.data) {
+      this.getData();
+      console.log(this.props);
+    }
   }
 
   render() {
