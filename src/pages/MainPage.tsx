@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import Search from '../components/search/Search';
 import { ListResult } from '../components/list-result/ListResult';
-import ErrorBtn from '../components/error-boundary/ErrorBtn';
 
 type Props = {
   children?: JSX.Element;
@@ -28,7 +27,6 @@ export default class MainPage extends Component<Props, State> {
       <>
         <Search updateData={this.updateData} />
         <ListResult data={this.state.searchVal} />
-        <ErrorBtn />
       </>
     );
   }

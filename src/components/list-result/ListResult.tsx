@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Character } from '../types';
+import './list-result.css';
 
 type State = {
   isLoaded: boolean;
@@ -20,11 +21,8 @@ export class ListResult extends Component<Props, State> {
     };
   }
 
-  async getData() {
+  async getData(url: string) {
     this.setState({ isLoaded: false, items: [] });
-    const url = this.props.data
-      ? `https://swapi.dev/api/people/?search=${this.props.data}`
-      : 'https://swapi.dev/api/people/';
     console.log(url);
     const response = await fetch(url);
     const result = await response.json();
@@ -35,33 +33,43 @@ export class ListResult extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.getData();
+    const url =
+      localStorage.getItem('valueKey') !== null
+        ? `https://swapi.dev/api/people/?search=${localStorage.getItem(
+            'valueKey'
+          )}`
+        : `https://swapi.dev/api/people/`;
+    this.getData(url);
   }
 
   componentDidUpdate(prevProps: { data: string | undefined }): void {
     if (this.props.data !== prevProps.data) {
-      this.getData();
+      const url =
+        this.props.data?.length !== 0
+          ? `https://swapi.dev/api/people/?search=${this.props.data}`
+          : `https://swapi.dev/api/people/`;
+      this.getData(url);
       console.log(this.props);
     }
   }
 
   render() {
     return (
-      <>
+      <div className="list__container">
         {!this.state.isLoaded && <p>Loading...</p>}
-        <ul>
+        <ul className="list">
           {this.state.items.map((item) => (
-            <li key={item.name}>
-              <ul>
-                <li>{`Name: ${item.name}`}</li>
-                <li>{`Gender: ${item.gender} cm`}</li>
-                <li>{`Eye color: ${item.eye_color}`}</li>
-                <li>{`Birth year: ${item.birth_year}`}</li>
+            <li className="list__item" key={item.name}>
+              <ul className="item__container">
+                <li className="item">{`Name: ${item.name}`}</li>
+                <li className="item">{`Gender: ${item.gender} cm`}</li>
+                <li className="item">{`Eye color: ${item.eye_color}`}</li>
+                <li className="item">{`Birth year: ${item.birth_year}`}</li>
               </ul>
             </li>
           ))}
         </ul>
-      </>
+      </div>
     );
   }
 }

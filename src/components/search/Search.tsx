@@ -1,5 +1,6 @@
 import { Component, FormEvent } from 'react';
-// import { Props } from '../types';
+import ErrorBtn from '../error-boundary/ErrorBtn';
+import './search.css';
 
 type State = {
   value: string;
@@ -20,13 +21,6 @@ export default class Search extends Component<Props, State> {
     this.inputVal = '';
   }
 
-  saveStringToLocalStorage(str: string) {
-    const savedStrings =
-      JSON.parse(localStorage.getItem('inputKey') as string) || [];
-    savedStrings.push(str);
-    localStorage.setItem('inputKey', JSON.stringify(savedStrings));
-  }
-
   onChange(event: { target: { value: string } }) {
     this.setState({ value: event.target.value });
     this.inputVal = event.target.value;
@@ -35,17 +29,24 @@ export default class Search extends Component<Props, State> {
 
   onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    this.saveStringToLocalStorage(this.inputVal);
+    localStorage.setItem('valueKey', this.inputVal);
     this.props.updateData(this.inputVal);
   };
 
+  componentDidMount(): void {
+    if (localStorage.getItem('inputKey') !== null) {
+      this.setState({ value: localStorage.getItem('inputKey') as string });
+    }
+  }
+
   render() {
     return (
-      <div>
+      <div className="search__container">
         <form onSubmit={this.onSubmit.bind(this)}>
-          <label>
+          <label className="search__label">
             Enter what you want to see:
             <input
+              className="search__input"
               name="key"
               id="key"
               type="text"
@@ -55,8 +56,11 @@ export default class Search extends Component<Props, State> {
               onChange={this.onChange.bind(this)}
             />
           </label>
-          <button type="submit">Search</button>
+          <button className="search__btn" type="submit">
+            Search
+          </button>
         </form>
+        <ErrorBtn />
       </div>
     );
   }

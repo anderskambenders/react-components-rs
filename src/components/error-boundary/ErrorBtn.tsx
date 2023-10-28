@@ -5,29 +5,29 @@ type Props = {
 };
 
 type State = {
-  btnIsClicked: boolean;
+  IsClicked: boolean;
 };
 
 export default class ErrorBtn extends Component<Props, State> {
   constructor(props: Props | Readonly<Props>) {
     super(props);
     this.state = {
-      btnIsClicked: false,
+      IsClicked: false,
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick() {
-    this.setState({ btnIsClicked: true });
+    this.setState({ IsClicked: true });
   }
 
   render() {
-    if (this.state.btnIsClicked) {
-      throw new Error('Yey Error boundary catch me');
+    if (this.state.IsClicked) {
+      throw new Error('This is error');
     }
     return (
       <button className="errBtn" onClick={this.handleClick}>
-        Error Btn
+        For Error
       </button>
     );
   }
