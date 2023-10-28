@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Character } from '../types';
 
 type State = {
+  isLoaded: boolean;
   items: Array<Character>;
 };
 
@@ -14,11 +15,13 @@ export class ListResult extends Component<Props, State> {
   constructor(props: Props | Readonly<Props>) {
     super(props);
     this.state = {
+      isLoaded: false,
       items: [],
     };
   }
 
   async getData() {
+    this.setState({ isLoaded: false, items: [] });
     const url = this.props.data
       ? `https://swapi.dev/api/people/?search=${this.props.data}`
       : 'https://swapi.dev/api/people/';
@@ -26,6 +29,7 @@ export class ListResult extends Component<Props, State> {
     const response = await fetch(url);
     const result = await response.json();
     this.setState({
+      isLoaded: true,
       items: result.results,
     });
   }
@@ -44,6 +48,7 @@ export class ListResult extends Component<Props, State> {
   render() {
     return (
       <>
+        {!this.state.isLoaded && <p>Loading...</p>}
         <ul>
           {this.state.items.map((item) => (
             <li key={item.name}>
