@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, FormEvent } from 'react';
 // import { Props } from '../types';
 
 type State = {
@@ -20,32 +20,43 @@ export default class Search extends Component<Props, State> {
     this.inputVal = '';
   }
 
+  saveStringToLocalStorage(str: string) {
+    const savedStrings =
+      JSON.parse(localStorage.getItem('inputKey') as string) || [];
+    savedStrings.push(str);
+    localStorage.setItem('inputKey', JSON.stringify(savedStrings));
+  }
+
   onChange(event: { target: { value: string } }) {
     this.setState({ value: event.target.value });
     this.inputVal = event.target.value;
-    localStorage.setItem('inputKey', this.inputVal);
     console.log(this.inputVal);
   }
 
-  onSubmit() {
+  onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    this.saveStringToLocalStorage(this.inputVal);
     this.props.updateData(this.inputVal);
-  }
+  };
 
   render() {
     return (
       <div>
-        <label>
-          Enter what you want to see:
-          <input
-            name="key"
-            id="key"
-            type="text"
-            placeholder="enter search param"
-            value={this.state.value}
-            onChange={this.onChange.bind(this)}
-          />
-        </label>
-        <button onClick={this.onSubmit.bind(this)}>Search</button>
+        <form onSubmit={this.onSubmit.bind(this)}>
+          <label>
+            Enter what you want to see:
+            <input
+              name="key"
+              id="key"
+              type="text"
+              placeholder="enter search param"
+              autoComplete="on"
+              value={this.state.value}
+              onChange={this.onChange.bind(this)}
+            />
+          </label>
+          <button type="submit">Search</button>
+        </form>
       </div>
     );
   }
