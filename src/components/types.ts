@@ -16,3 +16,7 @@ export type Character = {
   edited: string;
   url: string;
 };
+
+export interface Props {
+  children?: JSX.Element;
+}

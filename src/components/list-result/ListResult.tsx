@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Character } from '../types';
+import { Props } from '../types';
 import './list-result.css';
 
 type State = {
@@ -7,12 +8,11 @@ type State = {
   items: Array<Character>;
 };
 
-type Props = {
-  children?: JSX.Element;
+interface ResultProps extends Props {
   data?: string;
-};
+}
 
-export class ListResult extends Component<Props, State> {
+export class ListResult extends Component<ResultProps, State> {
   constructor(props: Props | Readonly<Props>) {
     super(props);
     this.state = {

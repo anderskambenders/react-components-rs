@@ -1,17 +1,17 @@
 import { Component, FormEvent } from 'react';
 import ErrorBtn from '../error-boundary/ErrorBtn';
+import { Props } from '../types';
 import './search.css';
 
 type State = {
   value: string;
 };
 
-type Props = {
-  children?: JSX.Element;
-  updateData: (value: string) => void;
-};
+interface SearchProps extends Props {
+  updateData?: (value: string) => void;
+}
 
-export default class Search extends Component<Props, State> {
+export default class Search extends Component<SearchProps, State> {
   inputVal: string;
   constructor(props: Props) {
     super(props);
@@ -30,7 +30,9 @@ export default class Search extends Component<Props, State> {
   onSubmit = (e: FormEvent) => {
     e.preventDefault();
     localStorage.setItem('valueKey', this.inputVal);
-    this.props.updateData(this.inputVal);
+    if (this.props.updateData) {
+      this.props.updateData(this.inputVal);
+    }
   };
 
   componentDidMount(): void {

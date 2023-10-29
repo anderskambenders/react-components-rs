@@ -1,8 +1,5 @@
 import { Component } from 'react';
-
-type Props = {
-  children?: JSX.Element;
-};
+import { Props } from '../types';
 
 type State = {
   hasError: boolean;

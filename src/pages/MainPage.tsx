@@ -1,10 +1,7 @@
 import { Component } from 'react';
 import Search from '../components/search/Search';
 import { ListResult } from '../components/list-result/ListResult';
-
-type Props = {
-  children?: JSX.Element;
-};
+import { Props } from '../components/types';
 
 type State = {
   searchVal: string;
