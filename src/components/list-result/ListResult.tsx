@@ -58,6 +58,9 @@ export class ListResult extends Component<ResultProps, State> {
       <div className="list__container">
         {!this.state.isLoaded && <p>Loading...</p>}
         <ul className="list">
+          {this.state.isLoaded && this.state.items.length === 0 && (
+            <p>Sorry, no items founded</p>
+          )}
           {this.state.items.map((item) => (
             <li className="list__item" key={item.name}>
               <ul className="item__container">
