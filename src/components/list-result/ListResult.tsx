@@ -57,7 +57,7 @@ export class ListResult extends Component<ResultProps, State> {
     return (
       <div className="list__container">
         {!this.state.isLoaded && <p>Loading...</p>}
-        <ul className="list">
+        <ol className="list">
           {this.state.isLoaded && this.state.items.length === 0 && (
             <p>Sorry, no items founded</p>
           )}
@@ -71,7 +71,7 @@ export class ListResult extends Component<ResultProps, State> {
               </ul>
             </li>
           ))}
-        </ul>
+        </ol>
       </div>
     );
   }

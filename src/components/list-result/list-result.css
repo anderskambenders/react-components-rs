@@ -9,14 +9,14 @@
 }
 
 .list {
-  list-style: none;
+  background-color: #fffff1;
 }
 
 .list__item {
   background-color: #fff1f2;
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .item {
-  margin-right: 13px;
+  padding-right: 13px;
 }

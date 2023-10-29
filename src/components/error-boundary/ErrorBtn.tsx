@@ -24,7 +24,7 @@ export default class ErrorBtn extends Component<Props, State> {
     }
     return (
       <button className="errBtn" onClick={this.handleClick}>
-        For Error
+        Error button
       </button>
     );
   }

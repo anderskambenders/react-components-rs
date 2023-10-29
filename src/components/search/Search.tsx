@@ -43,27 +43,30 @@ export default class Search extends Component<SearchProps, State> {
 
   render() {
     return (
-      <div className="search__container">
-        <form onSubmit={this.onSubmit.bind(this)}>
-          <label className="search__label">
-            Enter what you want to see:
-            <input
-              className="search__input"
-              name="key"
-              id="key"
-              type="text"
-              placeholder="enter search param"
-              autoComplete="on"
-              value={this.state.value}
-              onChange={this.onChange.bind(this)}
-            />
-          </label>
-          <button className="search__btn" type="submit">
-            Search
-          </button>
-        </form>
-        <ErrorBtn />
-      </div>
+      <>
+        <h2 className="header">Api: Star Wars (SWAPI)</h2>
+        <div className="search__container">
+          <form onSubmit={this.onSubmit.bind(this)}>
+            <label className="search__label">
+              Enter what you want to see:
+              <input
+                className="search__input"
+                name="key"
+                id="key"
+                type="text"
+                placeholder="enter search param"
+                autoComplete="on"
+                value={this.state.value}
+                onChange={this.onChange.bind(this)}
+              />
+            </label>
+            <button className="search__btn" type="submit">
+              Search
+            </button>
+          </form>
+          <ErrorBtn />
+        </div>
+      </>
     );
   }
 }
