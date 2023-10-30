@@ -24,7 +24,6 @@ export default class Search extends Component<SearchProps, State> {
   onChange(event: { target: { value: string } }) {
     this.setState({ value: event.target.value });
     this.inputVal = event.target.value;
-    console.log(this.inputVal);
   }
 
   onSubmit = (e: FormEvent) => {

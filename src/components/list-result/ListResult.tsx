@@ -23,7 +23,6 @@ export class ListResult extends Component<ResultProps, State> {
 
   async getData(url: string) {
     this.setState({ isLoaded: false, items: [] });
-    console.log(url);
     const response = await fetch(url);
     const result = await response.json();
     this.setState({
