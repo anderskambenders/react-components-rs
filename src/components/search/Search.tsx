@@ -35,8 +35,8 @@ export default class Search extends Component<SearchProps, State> {
   };
 
   componentDidMount(): void {
-    if (localStorage.getItem('inputKey') !== null) {
-      this.setState({ value: localStorage.getItem('inputKey') as string });
+    if (localStorage.getItem('valueKey') !== null) {
+      this.setState({ value: localStorage.getItem('valueKey') as string });
     }
   }
 

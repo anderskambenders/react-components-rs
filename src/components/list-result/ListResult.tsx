@@ -48,7 +48,6 @@ export class ListResult extends Component<ResultProps, State> {
           ? `https://swapi.dev/api/people/?search=${this.props.data}`
           : `https://swapi.dev/api/people/`;
       this.getData(url);
-      console.log(this.props);
     }
   }
 
