@@ -13,12 +13,16 @@ interface ResultProps extends Props {
 }
 
 export class ListResult extends Component<ResultProps, State> {
+  baseUrl: string;
+  searchUrl: string;
   constructor(props: Props | Readonly<Props>) {
     super(props);
     this.state = {
       isLoaded: false,
       items: [],
     };
+    this.baseUrl = `https://swapi.dev/api/people/`;
+    this.searchUrl = `https://swapi.dev/api/people/?search=`;
   }
 
   async getData(url: string) {
@@ -34,10 +38,8 @@ export class ListResult extends Component<ResultProps, State> {
   componentDidMount() {
     const url =
       localStorage.getItem('valueKey') !== null
-        ? `https://swapi.dev/api/people/?search=${localStorage.getItem(
-            'valueKey'
-          )}`
-        : `https://swapi.dev/api/people/`;
+        ? `${this.searchUrl}${localStorage.getItem('valueKey')}`
+        : this.baseUrl;
     this.getData(url);
   }
 
@@ -45,8 +47,8 @@ export class ListResult extends Component<ResultProps, State> {
     if (this.props.data !== prevProps.data) {
       const url =
         this.props.data?.length !== 0
-          ? `https://swapi.dev/api/people/?search=${this.props.data}`
-          : `https://swapi.dev/api/people/`;
+          ? `${this.searchUrl}${this.props.data}`
+          : this.baseUrl;
       this.getData(url);
     }
   }
