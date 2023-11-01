@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import Search from '../components/search/Search';
-import { ListResult } from '../components/list-result/ListResult';
+import ListResult from '../components/list-result/ListResult';
 import { Props } from '../components/types';
 
 type State = {
