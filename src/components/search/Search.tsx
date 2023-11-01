@@ -32,7 +32,7 @@ const Search = (props: SearchProps) => {
     <>
       <h2 className="header">Api: Star Wars (SWAPI)</h2>
       <div className="search__container">
-        <form onSubmit={(e) => onSubmit(e)}>
+        <form onSubmit={onSubmit}>
           <label className="search__label">
             Enter what you want to see:
             <input
@@ -43,7 +43,7 @@ const Search = (props: SearchProps) => {
               placeholder="enter search param"
               autoComplete="on"
               value={searchValue}
-              onChange={(e) => onChange(e)}
+              onChange={onChange}
             />
           </label>
           <button className="search__btn" type="submit">
