@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Character } from '../types';
 import { Props } from '../types';
+import Pagination from '../pagination/Pagination';
 import './list-result.css';
 
 interface ResultProps extends Props {
@@ -39,22 +40,25 @@ const ListResult = (props: ResultProps) => {
   }, [baseUrl, props.data, searchUrl]);
 
   return (
-    <div className="list__container">
-      {!isLoaded && <p>Loading...</p>}
-      <ol className="list">
-        {isLoaded && items.length === 0 && <p>Sorry, no items founded</p>}
-        {items.map((item) => (
-          <li className="list__item" key={item.name}>
-            <ul className="item__container">
-              <li className="item">{`Name: ${item.name}`}</li>
-              <li className="item">{`Gender: ${item.gender} cm`}</li>
-              <li className="item">{`Eye color: ${item.eye_color}`}</li>
-              <li className="item">{`Birth year: ${item.birth_year}`}</li>
-            </ul>
-          </li>
-        ))}
-      </ol>
-    </div>
+    <>
+      <div className="list__container">
+        {!isLoaded && <p>Loading...</p>}
+        <ol className="list">
+          {isLoaded && items.length === 0 && <p>Sorry, no items founded</p>}
+          {items.map((item) => (
+            <li className="list__item" key={item.name}>
+              <ul className="item__container">
+                <li className="item">{`Name: ${item.name}`}</li>
+                <li className="item">{`Gender: ${item.gender} cm`}</li>
+                <li className="item">{`Eye color: ${item.eye_color}`}</li>
+                <li className="item">{`Birth year: ${item.birth_year}`}</li>
+              </ul>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <Pagination />
+    </>
   );
 };
 
