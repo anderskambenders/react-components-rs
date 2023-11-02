@@ -1,9 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './pagination.css';
+import { useParams, useSearchParams } from 'react-router-dom';
 
-const Pagination = () => {
+type PaginationProps = {
+  itemsCount: number;
+  itemsPerPage: number;
+};
+
+const Pagination = (props: PaginationProps) => {
+  const params = useParams();
+  const [, setSearch] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
-  const maxPages = 8;
+  const maxPages = Math.floor(props.itemsCount / props.itemsPerPage);
   const items = [];
   let leftSide = currentPage - 2;
   if (leftSide <= 0) leftSide = 1;
@@ -18,21 +26,28 @@ const Pagination = () => {
         }
         onClick={() => {
           setCurrentPage(number);
+          setSearch({ ...params, page: number.toString() });
         }}
       >
         {number}
       </div>
     );
   }
+  useEffect(() => {
+    setSearch({ ...params, page: '1' });
+  }, []);
+
   const nextPage = () => {
     if (currentPage < maxPages) {
       setCurrentPage(currentPage + 1);
+      setSearch({ ...params, page: (currentPage + 1).toString() });
     }
   };
 
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
+      setSearch({ ...params, page: (currentPage - 1).toString() });
     }
   };
   return (

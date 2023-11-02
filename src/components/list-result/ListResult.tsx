@@ -13,12 +13,15 @@ const ListResult = (props: ResultProps) => {
   const searchUrl = `${baseUrl}?search=`;
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState<Character[]>([]);
+  const itemsPerPage = 10;
+  const [itemsCount, setItemsCount] = useState(0);
 
   const getData = async (url: string) => {
     setIsLoaded(false);
     setItems([]);
     const response = await fetch(url);
     const result = await response.json();
+    setItemsCount(result.count);
     setIsLoaded(true);
     setItems(result.results);
   };
@@ -57,7 +60,9 @@ const ListResult = (props: ResultProps) => {
           ))}
         </ol>
       </div>
-      <Pagination />
+      {isLoaded && (
+        <Pagination itemsCount={itemsCount} itemsPerPage={itemsPerPage} />
+      )}
     </>
   );
 };
