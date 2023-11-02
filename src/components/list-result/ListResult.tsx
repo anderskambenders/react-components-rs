@@ -3,12 +3,15 @@ import { Character } from '../types';
 import { Props } from '../types';
 import Pagination from '../pagination/Pagination';
 import './list-result.css';
+import { useSearchParams } from 'react-router-dom';
 
 interface ResultProps extends Props {
   data?: string;
 }
 
 const ListResult = (props: ResultProps) => {
+  const [search] = useSearchParams();
+  const page = Object.fromEntries(search).page;
   const baseUrl = `https://swapi.dev/api/people/`;
   const searchUrl = `${baseUrl}?search=`;
   const [isLoaded, setIsLoaded] = useState(false);
@@ -25,7 +28,6 @@ const ListResult = (props: ResultProps) => {
     setIsLoaded(true);
     setItems(result.results);
   };
-
   useEffect(() => {
     const url =
       localStorage.getItem('valueKey') !== null
@@ -37,10 +39,20 @@ const ListResult = (props: ResultProps) => {
   useEffect(() => {
     if (props.data) {
       const url =
-        props.data?.length !== 0 ? `${searchUrl}${props.data}` : baseUrl;
+        props.data?.length !== 0
+          ? `${searchUrl}${props.data}?page=${page}`
+          : `${baseUrl}?page=${page}`;
       getData(url);
     }
-  }, [baseUrl, props.data, searchUrl]);
+  }, [props.data]);
+
+  useEffect(() => {
+    const url =
+      props.data?.length !== 0
+        ? `${searchUrl}${props.data}?page=${page}`
+        : `${baseUrl}?page=${page}`;
+    getData(url);
+  }, [page]);
 
   return (
     <>
