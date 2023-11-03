@@ -11,7 +11,7 @@ interface ResultProps extends Props {
 
 const ListResult = (props: ResultProps) => {
   const [search] = useSearchParams();
-  const page = Object.fromEntries(search).page;
+  const page = Object.fromEntries(search).page || '1';
   const baseUrl = `https://swapi.dev/api/people/`;
   const searchUrl = `${baseUrl}?search=`;
   const [isLoaded, setIsLoaded] = useState(false);
@@ -22,11 +22,15 @@ const ListResult = (props: ResultProps) => {
   const getData = async (url: string) => {
     setIsLoaded(false);
     setItems([]);
-    const response = await fetch(url);
-    const result = await response.json();
-    setItemsCount(result.count);
-    setIsLoaded(true);
-    setItems(result.results);
+    try {
+      const response = await fetch(url);
+      const result = await response.json();
+      setItemsCount(result.count);
+      setIsLoaded(true);
+      setItems(result.results);
+    } catch (err) {
+      console.log(err);
+    }
   };
   useEffect(() => {
     const url =
@@ -40,8 +44,8 @@ const ListResult = (props: ResultProps) => {
     if (props.data) {
       const url =
         props.data?.length !== 0
-          ? `${searchUrl}${props.data}?page=${page}`
-          : `${baseUrl}?page=${page}`;
+          ? `${searchUrl}${props.data}?page=1`
+          : `${baseUrl}?page=1`;
       getData(url);
     }
   }, [props.data]);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './pagination.css';
 import { useParams, useSearchParams } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ type PaginationProps = {
 const Pagination = (props: PaginationProps) => {
   const params = useParams();
   const [search, setSearch] = useSearchParams();
-  const page = Object.fromEntries(search).page;
+  const page = Object.fromEntries(search).page || '1';
   const [currentPage, setCurrentPage] = useState(+page);
   const maxPages = Math.ceil(props.itemsCount / props.itemsPerPage);
   const items = [];
@@ -34,9 +34,10 @@ const Pagination = (props: PaginationProps) => {
       </div>
     );
   }
-  // useEffect(() => {
-  //   setSearch({ ...params, page: '1' });
-  // }, []);
+
+  useEffect(() => {
+    setSearch({ ...params, page: page });
+  }, []);
 
   const nextPage = () => {
     if (currentPage < maxPages) {
