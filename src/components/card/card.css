@@ -1,0 +1,52 @@
+
+.characterInfo {
+  position: relative;
+  margin-top: 20px;
+  flex: 1;
+}
+
+.infoWrap {
+  position: sticky;
+  top: 20px;
+  background: #323232;
+  text-align: center;
+  font-size: 18px;
+  border: 1px solid black;
+  border-radius: 15px;
+}
+
+.title {
+  margin: 20px 0 0 0;
+  filter: drop-shadow(2px 1px 2px red);
+  color: orange;
+}
+
+.blockInfo {
+  padding: 10px 0;
+}
+
+.blockInfo div {
+  padding: 2px 0;
+}
+
+.image {
+  width: 300px;
+  border-radius: 15px;
+}
+
+.listWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.list {
+  list-style: none;
+  text-align: start;
+  padding: 0 4px;
+}
+
+@media (max-width: 1000px) {
+  .image {
+    width: 200px;
+  }
+}

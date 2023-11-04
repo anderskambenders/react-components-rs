@@ -3,11 +3,15 @@ import { Character } from '../types';
 import { Props } from '../types';
 import Pagination from '../pagination/Pagination';
 import './list-result.css';
-import { useSearchParams } from 'react-router-dom';
+import { Link, Outlet, useSearchParams } from 'react-router-dom';
 
 interface ResultProps extends Props {
   data?: string;
 }
+
+const getIdfromUrl = (url: string) => {
+  return +url.split('/').slice(-2, -1);
+};
 
 const ListResult = (props: ResultProps) => {
   const [search] = useSearchParams();
@@ -39,12 +43,11 @@ const ListResult = (props: ResultProps) => {
         : baseUrl;
     getData(url);
   }, []);
-
   useEffect(() => {
     if (props.data) {
       const url =
         props.data?.length !== 0
-          ? `${searchUrl}${props.data}?page=1`
+          ? `${searchUrl}${props.data}&page=1`
           : `${baseUrl}?page=1`;
       getData(url);
     }
@@ -64,21 +67,24 @@ const ListResult = (props: ResultProps) => {
         {!isLoaded && <p>Loading...</p>}
         <ol className="list">
           {isLoaded && items.length === 0 && <p>Sorry, no items founded</p>}
-          {items.map((item) => (
-            <li className="list__item" key={item.name}>
-              <ul className="item__container">
-                <li className="item">{`Name: ${item.name}`}</li>
-                <li className="item">{`Gender: ${item.gender} cm`}</li>
-                <li className="item">{`Eye color: ${item.eye_color}`}</li>
-                <li className="item">{`Birth year: ${item.birth_year}`}</li>
-              </ul>
-            </li>
+          {items.map((item, ind) => (
+            <Link key={+page * 10 + ind} to={`about/${getIdfromUrl(item.url)}`}>
+              <li className="list__item" key={item.name}>
+                <ul className="item__container">
+                  <li className="item">{`Name: ${item.name}`}</li>
+                  <li className="item">{`Gender: ${item.gender} cm`}</li>
+                  <li className="item">{`Eye color: ${item.eye_color}`}</li>
+                  <li className="item">{`Birth year: ${item.birth_year}`}</li>
+                </ul>
+              </li>
+            </Link>
           ))}
         </ol>
       </div>
       {isLoaded && (
         <Pagination itemsCount={itemsCount} itemsPerPage={itemsPerPage} />
       )}
+      <Outlet />
     </>
   );
 };

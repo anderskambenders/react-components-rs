@@ -1,13 +1,22 @@
-import { Route, Routes } from 'react-router-dom';
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
 import MainPage from '../pages/MainPage';
-// import Card from '../components/card/Card';
+import Card from '../components/card/Card';
+import { loader } from '../components/card/Card';
 
-const MainRoutes = () => {
-  return (
-    <Routes>
-      <Route path={'/'} element={<MainPage />}></Route>
-    </Routes>
-  );
-};
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path={'/'} element={<MainPage />}>
+      <Route
+        path={`about/:peopleId`}
+        element={<Card />}
+        loader={loader}
+      ></Route>
+    </Route>
+  )
+);
 
-export default MainRoutes;
+export default router;
