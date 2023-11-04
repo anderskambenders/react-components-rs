@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Character } from '../types';
+import { Product } from '../types';
 import { Props } from '../types';
 import Pagination from '../pagination/Pagination';
 import './list-result.css';
@@ -9,17 +9,13 @@ interface ResultProps extends Props {
   data?: string;
 }
 
-const getIdfromUrl = (url: string) => {
-  return +url.split('/').slice(-2, -1);
-};
-
 const ListResult = (props: ResultProps) => {
   const [search] = useSearchParams();
   const page = Object.fromEntries(search).page || '1';
-  const baseUrl = `https://swapi.dev/api/people/`;
-  const searchUrl = `${baseUrl}?search=`;
+  const baseUrl = `https://dummyjson.com/products`;
+  const searchUrl = `${baseUrl}search?q=`;
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState<Character[]>([]);
+  const [items, setItems] = useState<Product[]>([]);
   const itemsPerPage = 10;
   const [itemsCount, setItemsCount] = useState(0);
 
@@ -31,7 +27,7 @@ const ListResult = (props: ResultProps) => {
       const result = await response.json();
       setItemsCount(result.count);
       setIsLoaded(true);
-      setItems(result.results);
+      setItems(result.products);
     } catch (err) {
       console.log(err);
     }
@@ -64,27 +60,27 @@ const ListResult = (props: ResultProps) => {
   return (
     <>
       <div className="list__container">
-        {!isLoaded && <p>Loading...</p>}
-        <ol className="list">
-          {isLoaded && items.length === 0 && <p>Sorry, no items founded</p>}
-          {items.map((item, ind) => (
-            <Link key={+page * 10 + ind} to={`about/${getIdfromUrl(item.url)}`}>
-              <li className="list__item" key={item.name}>
-                <ul className="item__container">
-                  <li className="item">{`Name: ${item.name}`}</li>
-                  <li className="item">{`Gender: ${item.gender} cm`}</li>
-                  <li className="item">{`Eye color: ${item.eye_color}`}</li>
-                  <li className="item">{`Birth year: ${item.birth_year}`}</li>
-                </ul>
-              </li>
-            </Link>
-          ))}
-        </ol>
+        <div>
+          {!isLoaded && <p>Loading...</p>}
+          <ol className="list">
+            {isLoaded && items.length === 0 && <p>Sorry, no items founded</p>}
+            {items.map((item, ind) => (
+              <Link key={+page * 10 + ind} to={`about/${item.id}`}>
+                <li className="list__item" key={item.id}>
+                  <ul className="item__container">
+                    <li className="item">{`Name: ${item.title}`}</li>
+                    <li className="item">{`Description: ${item.description} cm`}</li>
+                  </ul>
+                </li>
+              </Link>
+            ))}
+          </ol>
+        </div>
+        <Outlet />
       </div>
       {isLoaded && (
         <Pagination itemsCount={itemsCount} itemsPerPage={itemsPerPage} />
       )}
-      <Outlet />
     </>
   );
 };

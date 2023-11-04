@@ -30,7 +30,7 @@ const Search = (props: SearchProps) => {
 
   return (
     <>
-      <h2 className="header">Api: Star Wars (SWAPI)</h2>
+      <h2 className="header">Api: Dummy json (dummyjson.com)</h2>
       <div className="search__container">
         <form onSubmit={onSubmit}>
           <label className="search__label">

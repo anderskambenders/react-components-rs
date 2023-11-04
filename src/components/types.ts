@@ -1,20 +1,16 @@
-export type Character = {
-  name: string;
-  height: string;
-  mass: string;
-  hair_color: string;
-  skin_color: string;
-  eye_color: string;
-  birth_year: string;
-  gender: string;
-  homeworld: string;
-  films: string[];
+export type Product = {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  thumbnail: string[];
   species: string[];
-  vehicles: Array<string>;
-  starships: Array<string>;
-  created: string;
-  edited: string;
-  url: string;
+  images: Array<string>;
 };
 
 export interface Props {

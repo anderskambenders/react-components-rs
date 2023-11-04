@@ -1,39 +1,39 @@
 import './card.css';
-import { Character } from '../types';
+import { Product } from '../types';
 import { useLoaderData, Link, LoaderFunction } from 'react-router-dom';
 
-async function getCharacter(id: number) {
+async function getProduct(id: number) {
   if (!id || typeof id !== 'number') {
-    throw new Error('Invalid character ID');
+    throw new Error('Invalid product ID');
   }
-  const request = await fetch(`https://swapi.dev/api/people/${id}/`);
+  const request = await fetch(`https://dummyjson.com/products/${id}`);
   const response = await request.json();
   return response;
 }
 
-interface CharacterData {
-  character: Character;
+interface ProductData {
+  product: Product;
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
   if (params && params.peopleId !== undefined) {
-    const res = await getCharacter(+params.peopleId);
+    const res = await getProduct(+params.peopleId);
     console.log(res);
-    return { character: res };
+    return { product: res };
   }
 };
 
 const Card = () => {
-  const { character } = useLoaderData() as CharacterData;
-  console.log(character);
+  const { product } = useLoaderData() as ProductData;
+  console.log(product);
   return (
     <div className={'characterInfo'}>
       <div className={'infoWrap'}>
         <>
-          <h3 className={'title'}>{character.name}</h3>
+          <h3 className={'title'}>{product.title}</h3>
           <div className={'blockInfo'}>
-            <div>Weight: {character.eye_color}</div>
-            <div>Species: {character.birth_year}</div>
+            <div>Weight: {product.brand}</div>
+            <div>Species: {product.description}</div>
             <div className={'listWrap'}></div>
           </div>
           <div>

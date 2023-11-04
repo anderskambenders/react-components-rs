@@ -1,8 +1,8 @@
 
 .characterInfo {
   position: relative;
+  width: 30%;
   margin-top: 20px;
-  flex: 1;
 }
 
 .infoWrap {
@@ -29,11 +29,6 @@
   padding: 2px 0;
 }
 
-.image {
-  width: 300px;
-  border-radius: 15px;
-}
-
 .listWrap {
   display: flex;
   justify-content: center;
@@ -43,10 +38,4 @@
   list-style: none;
   text-align: start;
   padding: 0 4px;
-}
-
-@media (max-width: 1000px) {
-  .image {
-    width: 200px;
-  }
 }
