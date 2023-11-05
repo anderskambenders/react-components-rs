@@ -5,6 +5,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 type PaginationProps = {
   itemsCount: number;
   itemsPerPage: number;
+  updateLimit: (value: number) => void;
 };
 
 const Pagination = (props: PaginationProps) => {
@@ -52,20 +53,33 @@ const Pagination = (props: PaginationProps) => {
       setSearch({ ...params, page: (currentPage - 1).toString() });
     }
   };
+
   return (
-    <div className="pagination-container">
-      <div className="paginate-ctn">
-        <div className="round-effect" onClick={prevPage}>
-          {' '}
-          &lsaquo;{' '}
-        </div>
-        {items}
-        <div className="round-effect" onClick={nextPage}>
-          {' '}
-          &rsaquo;{' '}
+    <>
+      <div className="pagination-container">
+        <select
+          onChange={(e) => {
+            props.updateLimit(+e.target.value);
+          }}
+          value={props.itemsPerPage}
+        >
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
+        <div className="paginate-ctn">
+          <div className="round-effect" onClick={prevPage}>
+            {' '}
+            &lsaquo;{' '}
+          </div>
+          {items}
+          <div className="round-effect" onClick={nextPage}>
+            {' '}
+            &rsaquo;{' '}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -10,13 +10,16 @@ interface ResultProps extends Props {
 }
 
 const ListResult = (props: ResultProps) => {
+  const storageData = localStorage.getItem('valueKey');
   const [search] = useSearchParams();
+  const [limit, setLimit] = useState(10);
   const page = Object.fromEntries(search).page || '1';
-  const baseUrl = `https://dummyjson.com/products`;
-  const searchUrl = `${baseUrl}search?q=`;
+  const skip = limit * (+page - 1);
+  const baseUrl = `https://dummyjson.com/products?limit=${limit}&skip=${skip}`;
+  const searchUrl = (searchString: string) =>
+    `https://dummyjson.com/products/search?q=${searchString}`;
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState<Product[]>([]);
-  const itemsPerPage = 10;
   const [itemsCount, setItemsCount] = useState(0);
 
   const getData = async (url: string) => {
@@ -25,37 +28,29 @@ const ListResult = (props: ResultProps) => {
     try {
       const response = await fetch(url);
       const result = await response.json();
-      setItemsCount(result.count);
+      setItemsCount(result.total);
       setIsLoaded(true);
       setItems(result.products);
     } catch (err) {
       console.log(err);
     }
   };
-  useEffect(() => {
-    const url =
-      localStorage.getItem('valueKey') !== null
-        ? `${searchUrl}${localStorage.getItem('valueKey')}`
-        : baseUrl;
-    getData(url);
-  }, []);
-  useEffect(() => {
-    if (props.data) {
-      const url =
-        props.data?.length !== 0
-          ? `${searchUrl}${props.data}&page=1`
-          : `${baseUrl}?page=1`;
-      getData(url);
-    }
-  }, [props.data]);
+
+  const updateLimitValue = (value: number) => {
+    setLimit(value);
+  };
 
   useEffect(() => {
-    const url =
-      props.data?.length !== 0
-        ? `${searchUrl}${props.data}?page=${page}`
-        : `${baseUrl}?page=${page}`;
+    let url;
+    if (props.data?.length === 0) {
+      url = baseUrl;
+    } else {
+      url = storageData !== null ? searchUrl(storageData) : baseUrl;
+    }
+
+    console.log(url);
     getData(url);
-  }, [page]);
+  }, [page, limit, props.data]);
 
   return (
     <>
@@ -79,7 +74,11 @@ const ListResult = (props: ResultProps) => {
         <Outlet />
       </div>
       {isLoaded && (
-        <Pagination itemsCount={itemsCount} itemsPerPage={itemsPerPage} />
+        <Pagination
+          itemsCount={itemsCount}
+          itemsPerPage={limit}
+          updateLimit={updateLimitValue}
+        />
       )}
     </>
   );
