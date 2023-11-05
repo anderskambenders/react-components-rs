@@ -1,6 +1,6 @@
 import './card.css';
 import { Product } from '../types';
-import { useLoaderData, Link, LoaderFunction } from 'react-router-dom';
+import { useLoaderData, Link, LoaderFunction, defer } from 'react-router-dom';
 
 async function getProduct(id: number) {
   if (!id || typeof id !== 'number') {
@@ -16,33 +16,33 @@ interface ProductData {
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
-  if (params && params.peopleId !== undefined) {
-    const res = await getProduct(+params.peopleId);
-    console.log(res);
-    return { product: res };
+  if (params && params.productId !== undefined) {
+    return defer({ product: await getProduct(+params.productId) });
   }
 };
 
 const Card = () => {
   const { product } = useLoaderData() as ProductData;
-  console.log(product);
+  const CardInfo = (
+    <div className={'infoWrap'}>
+      <img className="product__img" src={product.images[0]} alt="prod-img" />
+      <h3 className={'title'}>{product.title}</h3>
+      <div className={'blockInfo'}>
+        <div>Brand: {product.brand}</div>
+        <div>Description: {product.description}</div>
+        <div>Price: {product.price}$</div>
+        <div className={'listWrap'}></div>
+      </div>
+      <div>
+        <Link to={'/'}>
+          <button className={'backButton'}>Back</button>
+        </Link>
+      </div>
+    </div>
+  );
   return (
     <div className={'characterInfo'}>
-      <div className={'infoWrap'}>
-        <>
-          <h3 className={'title'}>{product.title}</h3>
-          <div className={'blockInfo'}>
-            <div>Weight: {product.brand}</div>
-            <div>Species: {product.description}</div>
-            <div className={'listWrap'}></div>
-          </div>
-          <div>
-            <Link to={'/'}>
-              <button className={'backButton'}>Back</button>
-            </Link>
-          </div>
-        </>
-      </div>
+      {product ? CardInfo : <p>Loading...</p>}
     </div>
   );
 };

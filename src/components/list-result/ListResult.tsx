@@ -21,7 +21,6 @@ const ListResult = (props: ResultProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState<Product[]>([]);
   const [itemsCount, setItemsCount] = useState(0);
-
   const getData = async (url: string) => {
     setIsLoaded(false);
     setItems([]);
@@ -47,40 +46,43 @@ const ListResult = (props: ResultProps) => {
     } else {
       url = storageData !== null ? searchUrl(storageData) : baseUrl;
     }
-
-    console.log(url);
     getData(url);
   }, [page, limit, props.data]);
 
   return (
-    <>
+    <div className="result__container">
       <div className="list__container">
         <div>
           {!isLoaded && <p>Loading...</p>}
-          <ol className="list">
+          <div className="list">
             {isLoaded && items.length === 0 && <p>Sorry, no items founded</p>}
             {items.map((item, ind) => (
-              <Link key={+page * 10 + ind} to={`about/${item.id}`}>
-                <li className="list__item" key={item.id}>
+              <Link
+                className="link"
+                key={+page * 10 + ind}
+                to={`about/${item.id}?page=${page}`}
+              >
+                <div className="list__item" key={item.id}>
                   <ul className="item__container">
+                    <img className="item__img" src={item.images[0]} />
                     <li className="item">{`Name: ${item.title}`}</li>
                     <li className="item">{`Description: ${item.description} cm`}</li>
                   </ul>
-                </li>
+                </div>
               </Link>
             ))}
-          </ol>
+          </div>
         </div>
-        <Outlet />
+        {isLoaded && (
+          <Pagination
+            itemsCount={itemsCount}
+            itemsPerPage={limit}
+            updateLimit={updateLimitValue}
+          />
+        )}
       </div>
-      {isLoaded && (
-        <Pagination
-          itemsCount={itemsCount}
-          itemsPerPage={limit}
-          updateLimit={updateLimitValue}
-        />
-      )}
-    </>
+      <Outlet />
+    </div>
   );
 };
 

@@ -1,22 +1,48 @@
+.result__container {
+  display: flex;
+  justify-content: center;
+}
+
 .list__container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
 .item__container {
   display: flex;
+  flex-direction: column;
   list-style: none;
 }
 
 .list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
   background-color: #fffff1;
 }
 
 .list__item {
+  display: flex;
+  flex-direction: column;
   background-color: #fff1f2;
+  width: 400px;
   padding-bottom: 10px;
+}
+
+.link {
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
 }
 
 .item {
   padding-right: 13px;
 }
+
+.item__img {
+  max-height: 150px;
+  object-fit: contain;
+}
+
+

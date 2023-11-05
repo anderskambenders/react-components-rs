@@ -11,7 +11,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={'/'} element={<MainPage />}>
       <Route
-        path={`about/:peopleId`}
+        path={`about/:productId`}
         element={<Card />}
         loader={loader}
       ></Route>

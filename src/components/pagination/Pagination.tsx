@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './pagination.css';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 
 type PaginationProps = {
   itemsCount: number;
@@ -11,6 +11,7 @@ type PaginationProps = {
 const Pagination = (props: PaginationProps) => {
   const params = useParams();
   const [search, setSearch] = useSearchParams();
+  const { pathname } = useLocation();
   const page = Object.fromEntries(search).page || '1';
   const [currentPage, setCurrentPage] = useState(+page);
   const maxPages = Math.ceil(props.itemsCount / props.itemsPerPage);
@@ -27,8 +28,10 @@ const Pagination = (props: PaginationProps) => {
           number === currentPage ? 'round-effect active' : 'round-effect'
         }
         onClick={() => {
-          setCurrentPage(number);
-          setSearch({ ...params, page: number.toString() });
+          if (pathname === '/') {
+            setCurrentPage(number);
+            setSearch({ ...params, page: number.toString() });
+          }
         }}
       >
         {number}
