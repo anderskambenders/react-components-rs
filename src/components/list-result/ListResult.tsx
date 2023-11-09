@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
-import { Product } from '../types';
 import Pagination from '../pagination/Pagination';
 import './list-result.css';
 import { Link, Outlet, useSearchParams } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
+import { baseUrl, searchUrl, getProductsData } from '../../api/api';
 
 const ListResult = () => {
   const storageData = localStorage.getItem('valueKey');
@@ -12,26 +12,9 @@ const ListResult = () => {
   const [limit, setLimit] = useState(10);
   const page = Object.fromEntries(search).page || '1';
   const skip = limit * (+page - 1);
-  const baseUrl = `https://dummyjson.com/products?limit=${limit}&skip=${skip}`;
-  const searchUrl = (searchString: string) =>
-    `https://dummyjson.com/products/search?q=${searchString}`;
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState<Product[]>([]);
   const [itemsCount, setItemsCount] = useState(0);
-  const getData = async (url: string) => {
-    setIsLoaded(false);
-    setItems([]);
-    try {
-      const response = await fetch(url);
-      const result = await response.json();
-      setItemsCount(result.total);
-      setIsLoaded(true);
-      setItems(result.products);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  console.log(context.searchValue);
+
   const updateLimitValue = (value: number) => {
     setLimit(value);
   };
@@ -39,11 +22,18 @@ const ListResult = () => {
   useEffect(() => {
     let url;
     if (context.searchValue?.length === 0) {
-      url = baseUrl;
+      url = baseUrl(limit, skip);
     } else {
-      url = storageData !== null ? searchUrl(storageData) : baseUrl;
+      url =
+        storageData !== null ? searchUrl(storageData) : baseUrl(limit, skip);
     }
-    getData(url);
+    setIsLoaded(false);
+    context.setProducts([]);
+    getProductsData(url).then((result) => {
+      setItemsCount(result.total);
+      setIsLoaded(true);
+      context.setProducts(result.products);
+    });
   }, [page, limit, context.searchValue]);
 
   return (
@@ -52,8 +42,10 @@ const ListResult = () => {
         <div>
           {!isLoaded && <p>Loading...</p>}
           <div className="list">
-            {isLoaded && items.length === 0 && <p>Sorry, no items founded</p>}
-            {items.map((item, ind) => (
+            {isLoaded && context.products.length === 0 && (
+              <p>Sorry, no items founded</p>
+            )}
+            {context.products.map((item, ind) => (
               <Link
                 className="link"
                 key={+page * 10 + ind}
