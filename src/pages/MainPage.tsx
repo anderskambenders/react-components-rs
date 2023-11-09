@@ -1,7 +1,8 @@
-import { useState } from 'react';
 import Search from '../components/search/Search';
 import ListResult from '../components/list-result/ListResult';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import ErrorBoundary from '../components/error-boundary/ErrorBoundary';
+import { AppContextProvider } from '../context/AppContext';
 
 const MainPage = () => {
   const { pathname } = useLocation();
@@ -14,17 +15,18 @@ const MainPage = () => {
       navigate(`/?page=${page}`);
     }
   };
-  const [searchValue, setSearchValue] = useState('');
-
-  const updateData = (value: string) => setSearchValue(value);
 
   return (
-    <>
-      <Search updateData={updateData} />
-      <div onClick={handleBack}>
-        <ListResult data={searchValue} />
-      </div>
-    </>
+    <ErrorBoundary>
+      <AppContextProvider>
+        <>
+          <Search />
+          <div onClick={handleBack}>
+            <ListResult />
+          </div>
+        </>
+      </AppContextProvider>
+    </ErrorBoundary>
   );
 };
 

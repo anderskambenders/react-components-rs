@@ -1,20 +1,11 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import ErrorBtn from '../error-boundary/ErrorBtn';
-import { Props } from '../types';
+import { AppContext } from '../../context/AppContext';
 import './search.css';
 
-interface SearchProps extends Props {
-  updateData?: (value: string) => void;
-}
-
-const Search = (props: SearchProps) => {
-  const [searchValue, setSearchValue] = useState('');
-
-  useEffect(() => {
-    if (localStorage.getItem('valueKey') !== null) {
-      setSearchValue(localStorage.getItem('valueKey') as string);
-    }
-  }, []);
+const Search = () => {
+  const context = useContext(AppContext);
+  const [searchValue, setSearchValue] = useState(context.searchValue);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -23,9 +14,7 @@ const Search = (props: SearchProps) => {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     localStorage.setItem('valueKey', searchValue);
-    if (props.updateData) {
-      props.updateData(searchValue);
-    }
+    context.setSearchValue(searchValue);
   };
 
   return (

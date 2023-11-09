@@ -1,16 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Product } from '../types';
-import { Props } from '../types';
 import Pagination from '../pagination/Pagination';
 import './list-result.css';
 import { Link, Outlet, useSearchParams } from 'react-router-dom';
+import { AppContext } from '../../context/AppContext';
 
-interface ResultProps extends Props {
-  data?: string;
-}
-
-const ListResult = (props: ResultProps) => {
+const ListResult = () => {
   const storageData = localStorage.getItem('valueKey');
+  const context = useContext(AppContext);
   const [search] = useSearchParams();
   const [limit, setLimit] = useState(10);
   const page = Object.fromEntries(search).page || '1';
@@ -34,20 +31,20 @@ const ListResult = (props: ResultProps) => {
       console.log(err);
     }
   };
-
+  console.log(context.searchValue);
   const updateLimitValue = (value: number) => {
     setLimit(value);
   };
 
   useEffect(() => {
     let url;
-    if (props.data?.length === 0) {
+    if (context.searchValue?.length === 0) {
       url = baseUrl;
     } else {
       url = storageData !== null ? searchUrl(storageData) : baseUrl;
     }
     getData(url);
-  }, [page, limit, props.data]);
+  }, [page, limit, context.searchValue]);
 
   return (
     <div className="result__container">
