@@ -73,12 +73,12 @@ const Pagination = (props: PaginationProps) => {
         <div className="paginate-ctn">
           <div className="round-effect" onClick={prevPage}>
             {' '}
-            &lsaquo;{' '}
+            &lt;{' '}
           </div>
           {items}
           <div className="round-effect" onClick={nextPage}>
             {' '}
-            &rsaquo;{' '}
+            &gt;{' '}
           </div>
         </div>
       </div>

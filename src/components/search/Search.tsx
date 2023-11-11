@@ -5,7 +5,9 @@ import './search.css';
 
 const Search = () => {
   const context = useContext(AppContext);
-  const [searchValue, setSearchValue] = useState(context.searchValue);
+  const [searchValue, setSearchValue] = useState(
+    localStorage.getItem('valueKey') || ''
+  );
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
