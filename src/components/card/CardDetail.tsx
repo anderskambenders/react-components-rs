@@ -13,7 +13,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   }
 };
 
-const Card = () => {
+const CardDetail = () => {
   const { product } = useLoaderData() as ProductData;
   const CardInfo = (
     <div className={'infoWrap'}>
@@ -39,4 +39,4 @@ const Card = () => {
   );
 };
 
-export default Card;
+export default CardDetail;

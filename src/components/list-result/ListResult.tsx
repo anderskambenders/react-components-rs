@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import Pagination from '../pagination/Pagination';
+import Card from './Card';
 import './list-result.css';
-import { Link, Outlet, useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import { baseUrl, searchUrl, getProductsData } from '../../api/api';
 
@@ -12,7 +13,6 @@ const ListResult = () => {
   const [limit, setLimit] = useState(10);
   const page = Object.fromEntries(search).page || '1';
   const skip = limit * (+page - 1);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [itemsCount, setItemsCount] = useState(0);
 
   const updateLimitValue = (value: number) => {
@@ -27,11 +27,11 @@ const ListResult = () => {
       url =
         storageData !== null ? searchUrl(storageData) : baseUrl(limit, skip);
     }
-    setIsLoaded(false);
+    context.setIsLoaded(false);
     context.setProducts([]);
     getProductsData(url).then((result) => {
       setItemsCount(result.total);
-      setIsLoaded(true);
+      context.setIsLoaded(true);
       context.setProducts(result.products);
     });
   }, [page, limit, context.searchValue]);
@@ -40,29 +40,17 @@ const ListResult = () => {
     <div className="result__container">
       <div className="list__container">
         <div>
-          {!isLoaded && <p>Loading...</p>}
+          {!context.isLoaded && <p>Loading...</p>}
           <div className="list">
-            {isLoaded && context.products.length === 0 && (
+            {context.isLoaded && context.products.length === 0 && (
               <p>Sorry, no items founded</p>
             )}
             {context.products.map((item, ind) => (
-              <Link
-                className="link"
-                key={+page * 10 + ind}
-                to={`about/${item.id}?page=${page}`}
-              >
-                <div className="list__item" key={item.id}>
-                  <ul className="item__container">
-                    <img className="item__img" src={item.images[0]} />
-                    <li className="item">{`Name: ${item.title}`}</li>
-                    <li className="item">{`Description: ${item.description} cm`}</li>
-                  </ul>
-                </div>
-              </Link>
+              <Card key={ind} props={item} />
             ))}
           </div>
         </div>
-        {isLoaded && (
+        {context.isLoaded && (
           <Pagination
             itemsCount={itemsCount}
             itemsPerPage={limit}
