@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.47% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/42</span>
+                <span class='fraction'>42/42</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.47% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/42</span>
+                <span class='fraction'>42/42</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -115,36 +115,36 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import './card.css';
@@ -158,35 +158,35 @@ interface ProductData {
 &nbsp;
 export const loader: LoaderFunction = async ({ params }) =&gt; {
   if (params &amp;&amp; params.productId !== undefined) {
-    return defer({ product: await getProduct(+params.productId<span class="branch-0 cbranch-no" title="branch not covered" >) });</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+    return defer({ product: await getProduct(+params.productId) });
+  }
 };
 &nbsp;
-const CardDetail = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  const { product } = useLoaderData() as ProductData;</span>
-<span class="cstat-no" title="statement not covered" >  const CardInfo = (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;div className={'infoWrap'}&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;img className="product__img" src={product.images[0]} alt="prod-img" /&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;h3 className={'title'}&gt;{product.title}&lt;/h3&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;div className={'blockInfo'}&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div&gt;Brand: {product.brand}&lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div&gt;Description: {product.description}&lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div&gt;Price: {product.price}$&lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div className={'listWrap'}&gt;&lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;div&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;Link to={'/'}&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;button className={'backButton'}&gt;Back&lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/Link&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >  );</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;div className={'characterInfo'}&gt;</span>
-<span class="cstat-no" title="statement not covered" >      {product ? CardInfo : &lt;p&gt;Loading...&lt;/p&gt;}</span>
-<span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >  );</span>
-<span class="cstat-no" title="statement not covered" >};</span>
+const CardDetail = () =&gt; {
+  const { product } = useLoaderData() as ProductData;
+  const CardInfo = (
+    &lt;div className={'infoWrap'}&gt;
+      &lt;img className="product__img" src={product.images[0]} alt="prod-img" /&gt;
+      &lt;h3 className={'title'}&gt;{product.title}&lt;/h3&gt;
+      &lt;div className={'blockInfo'}&gt;
+        &lt;div&gt;Brand: {product.brand}&lt;/div&gt;
+        &lt;div&gt;Description: {product.description}&lt;/div&gt;
+        &lt;div&gt;Price: {product.price}$&lt;/div&gt;
+        &lt;div className={'listWrap'}&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;Link to={'/'}&gt;
+          &lt;button className={'backButton'}&gt;Back&lt;/button&gt;
+        &lt;/Link&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+  return (
+    &lt;div className={'characterInfo'}&gt;
+      {product !== undefined ? <span class="branch-0 cbranch-no" title="branch not covered" >CardInfo : &lt;p&gt;Loading...&lt;/p&gt;}</span>
+    &lt;/div&gt;
+  );
+};
 &nbsp;
 export default CardDetail;
 &nbsp;</pre></td></tr></table></pre>
@@ -196,7 +196,7 @@ export default CardDetail;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-12T14:10:53.376Z
+                at 2023-11-12T16:38:35.507Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
