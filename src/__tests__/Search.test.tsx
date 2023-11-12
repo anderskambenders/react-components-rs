@@ -16,7 +16,7 @@ const MockSearchComponent = () => {
 
 describe('Search component', () => {
   it('Verify that clicking the Search button saves the entered value to the local storage', async () => {
-    await render(<MockSearchComponent />);
+    render(<MockSearchComponent />);
 
     localStorage.setItem(SEARCH_DEFAULT, '');
 
@@ -35,7 +35,7 @@ describe('Search component', () => {
 
   it('Check that the component retrieves the value from the local storage upon mounting', async () => {
     localStorage.setItem(SEARCH_DEFAULT, TEST_STRING);
-    await render(<MockSearchComponent />);
+    render(<MockSearchComponent />);
 
     const inputElement = (await screen.findByPlaceholderText(
       SEARCH_PLACEHOLDER_TEXT

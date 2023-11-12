@@ -34,7 +34,7 @@ const CardDetail = () => {
   );
   return (
     <div className={'characterInfo'}>
-      {product ? CardInfo : <p>Loading...</p>}
+      {product !== undefined ? CardInfo : <p>Loading...</p>}
     </div>
   );
 };

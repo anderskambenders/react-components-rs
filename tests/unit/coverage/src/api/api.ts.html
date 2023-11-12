@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.13% </span>
+                <span class="strong">69.56% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/23</span>
+                <span class='fraction'>16/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>5/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.13% </span>
+                <span class="strong">69.56% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/23</span>
+                <span class='fraction'>16/23</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -89,46 +89,46 @@
 <a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const baseUrl = (limit: number, skip: number) =&gt;
   `https://dummyjson.com/products?limit=${limit}&amp;skip=${skip}`;
-export const searchUrl = <span class="fstat-no" title="function not covered" >(searchString: string) =&gt;</span>
-<span class="cstat-no" title="statement not covered" >  `https://dummyjson.com/products/search?q=${searchString}`;</span>
+export const searchUrl = (searchString: string) =&gt;
+  `https://dummyjson.com/products/search?q=${searchString}`;
 &nbsp;
 export const getProductsData = async (url: string) =&gt; {
   try {
-    const response = await fetch(url<span class="branch-0 cbranch-no" title="branch not covered" >);</span>
-<span class="cstat-no" title="statement not covered" >    const result = await response.json();</span>
-<span class="cstat-no" title="statement not covered" >    return result;</span>
-<span class="cstat-no" title="statement not covered" >  } catch (err) {</span>
+    const response = await fetch(url);
+    const result = await response.json();
+    return result;
+<span class="branch-0 cbranch-no" title="branch not covered" >  } catch (err) {</span>
 <span class="cstat-no" title="statement not covered" >    console.log(err);</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 };
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export async function getProduct(id: number) {</span></span>
-<span class="cstat-no" title="statement not covered" >  if (!id || typeof id !== 'number') {</span>
+export async function getProduct(id: number) {
+  if (!id || typeof id !== 'number') <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >    throw new Error('Invalid product ID');</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
-<span class="cstat-no" title="statement not covered" >  const request = await fetch(`https://dummyjson.com/products/${id}`);</span>
+  const request = await fetch(`https://dummyjson.com/products/${id}`<span class="branch-0 cbranch-no" title="branch not covered" >);</span>
 <span class="cstat-no" title="statement not covered" >  const response = await request.json();</span>
 <span class="cstat-no" title="statement not covered" >  return response;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
@@ -139,7 +139,7 @@ export const getProductsData = async (url: string) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-11T21:34:05.002Z
+                at 2023-11-12T14:10:53.376Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

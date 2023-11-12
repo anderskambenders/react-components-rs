@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import Pagination from '../pagination/Pagination';
 import Card from './Card';
 import './list-result.css';
-import { Outlet, useSearchParams } from 'react-router-dom';
+import { Link, Outlet, useSearchParams } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import { baseUrl, searchUrl, getProductsData } from '../../api/api';
 
@@ -46,7 +46,18 @@ const ListResult = () => {
               <p>Sorry, no items founded</p>
             )}
             {context.products.map((item, ind) => (
-              <Card key={ind} props={item} />
+              <Link
+                key={ind}
+                className="link"
+                to={`about/${item.id}?page=${page}`}
+              >
+                <Card
+                  id={item.id}
+                  image={item.images}
+                  title={item.title}
+                  description={item.description}
+                />
+              </Link>
             ))}
           </div>
         </div>
