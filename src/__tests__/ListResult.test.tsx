@@ -20,6 +20,15 @@ const product = {
 const mockFunc = vi.fn();
 
 describe('CardContainer', () => {
+  it('It renders component', async () => {
+    render(
+      <MemoryRouter initialEntries={['/page/1/']}>
+        <ListResult />
+      </MemoryRouter>
+    );
+    const notFoundText = screen.findByText('Sorry, no items founded');
+    expect(notFoundText).toBeTruthy();
+  });
   it('renders the specified number of cards', () => {
     render(
       <AppContext.Provider
