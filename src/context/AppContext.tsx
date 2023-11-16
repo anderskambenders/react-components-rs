@@ -13,8 +13,6 @@ interface IContextProvider {
 }
 
 interface IContext {
-  searchValue: string;
-  setSearchValue: Dispatch<SetStateAction<string>>;
   products: Array<Product>;
   setProducts: Dispatch<SetStateAction<Product[]>>;
   isLoaded: boolean;
@@ -22,8 +20,6 @@ interface IContext {
 }
 
 export const AppContext = createContext<IContext>({
-  searchValue: '',
-  setSearchValue: () => {},
   products: [],
   setProducts: () => {},
   isLoaded: false,
@@ -31,15 +27,10 @@ export const AppContext = createContext<IContext>({
 });
 
 export const AppContextProvider: FC<IContextProvider> = ({ children }) => {
-  const [searchValue, setSearchValue] = useState(
-    localStorage.getItem('valueKey') || ''
-  );
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const props = {
-    searchValue,
-    setSearchValue,
     products,
     setProducts,
     isLoaded,

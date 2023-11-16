@@ -1,10 +1,11 @@
-import { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import ErrorBtn from '../error-boundary/ErrorBtn';
-import { AppContext } from '../../context/AppContext';
 import './search.css';
+import { useAppDispatch } from '../../store/hooks';
+import { searchInputSlice } from '../../store/searchInput.slice';
 
 const Search = () => {
-  const context = useContext(AppContext);
+  const dispatch = useAppDispatch();
   const [searchValue, setSearchValue] = useState(
     localStorage.getItem('valueKey') || ''
   );
@@ -16,7 +17,8 @@ const Search = () => {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     localStorage.setItem('valueKey', searchValue);
-    context.setSearchValue(searchValue);
+    dispatch(searchInputSlice.actions.set(searchValue));
+    // context.setSearchValue(searchValue);
   };
 
   return (

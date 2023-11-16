@@ -5,8 +5,10 @@ import './list-result.css';
 import { Link, Outlet, useSearchParams } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import { baseUrl, searchUrl, getProductsData } from '../../api/api';
+import { useAppSelector } from '../../store/hooks';
 
 const ListResult = () => {
+  const searchValue = useAppSelector((state) => state.searchInput.searchInput);
   const storageData = localStorage.getItem('valueKey');
   const context = useContext(AppContext);
   const [search] = useSearchParams();
@@ -21,7 +23,7 @@ const ListResult = () => {
 
   useEffect(() => {
     let url;
-    if (context.searchValue?.length === 0) {
+    if (searchValue.length === 0) {
       url = baseUrl(limit, skip);
     } else {
       url =
@@ -34,7 +36,7 @@ const ListResult = () => {
       context.setIsLoaded(true);
       context.setProducts(result.products);
     });
-  }, [page, limit, context.searchValue]);
+  }, [page, limit, searchValue]);
 
   return (
     <div className="result__container">
