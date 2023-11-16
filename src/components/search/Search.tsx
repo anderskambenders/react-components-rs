@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import ErrorBtn from '../error-boundary/ErrorBtn';
+import ErrorButton from '../error-boundary/ErrorButton';
 import './search.css';
 import { useAppDispatch } from '../../store/hooks';
 import { searchInputSlice } from '../../store/searchInput.slice';
@@ -18,7 +18,6 @@ const Search = () => {
     e.preventDefault();
     localStorage.setItem('valueKey', searchValue);
     dispatch(searchInputSlice.actions.set(searchValue));
-    // context.setSearchValue(searchValue);
   };
 
   return (
@@ -43,7 +42,7 @@ const Search = () => {
             Search
           </button>
         </form>
-        <ErrorBtn />
+        <ErrorButton />
       </div>
     </>
   );

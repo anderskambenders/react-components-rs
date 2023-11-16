@@ -3,28 +3,24 @@ import './pagination.css';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hooks';
 import { itemsPerPageSlice } from '../../store/itemsPerPage.slice';
+import { getPaginationNumbers } from '../../utils/getPaginationNumbers';
 
 type PaginationProps = {
   itemsCount: number;
   itemsPerPage: number;
 };
 
+// Object.fromEntries(search).page || '1'
+
 const Pagination = (props: PaginationProps) => {
   const params = useParams();
   const dispatch = useAppDispatch();
   const [search, setSearch] = useSearchParams();
   const { pathname } = useLocation();
-  const page = Object.fromEntries(search).page || '1';
+  const page = search.get('page') || '1';
   const [currentPage, setCurrentPage] = useState(+page);
   const maxPages = Math.ceil(props.itemsCount / props.itemsPerPage);
-  const pageNumbers: number[] = [];
-  let leftSide = currentPage - 2;
-  if (leftSide <= 0) leftSide = 1;
-  let rightSide = currentPage + 2;
-  if (rightSide > maxPages) rightSide = maxPages;
-  for (let number = leftSide; number <= rightSide; number++) {
-    pageNumbers.push(number);
-  }
+  const pageNumbers = getPaginationNumbers(currentPage, maxPages);
 
   useEffect(() => {
     setSearch({ ...params, page: page });

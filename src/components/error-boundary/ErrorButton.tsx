@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const ErrorBtn = () => {
+const ErrorButton = () => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => setIsClicked(true);
@@ -15,4 +15,4 @@ const ErrorBtn = () => {
   );
 };
 
-export default ErrorBtn;
+export default ErrorButton;

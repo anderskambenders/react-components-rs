@@ -12,7 +12,3 @@ export type Product = {
   species: string[];
   images: Array<string>;
 };
-
-export interface Props {
-  children?: JSX.Element;
-}

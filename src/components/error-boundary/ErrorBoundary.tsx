@@ -1,9 +1,11 @@
 import { Component } from 'react';
-import { Props } from '../types';
 
 type State = {
   hasError: boolean;
 };
+export interface Props {
+  children?: JSX.Element;
+}
 
 export default class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props | Readonly<Props>) {

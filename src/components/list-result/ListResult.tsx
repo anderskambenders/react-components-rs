@@ -12,7 +12,7 @@ const ListResult = () => {
   const storageData = localStorage.getItem('valueKey');
   const context = useContext(AppContext);
   const [search] = useSearchParams();
-  const page = Object.fromEntries(search).page || '1';
+  const page = search.get('page') || '1';
   const [itemsCount, setItemsCount] = useState(0);
   const itemsPerPage = useAppSelector(
     (state) => state.itemsPerPage.itemsPerPage
