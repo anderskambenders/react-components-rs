@@ -17,7 +17,7 @@ const CardDetail = () => {
   const { product } = useLoaderData() as ProductData;
   return (
     <div className={'characterInfo'}>
-      {product !== undefined ? (
+      {product ? (
         <div className={'infoWrap'}>
           <img
             className="product__img"

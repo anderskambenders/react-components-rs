@@ -17,28 +17,13 @@ const Pagination = (props: PaginationProps) => {
   const page = Object.fromEntries(search).page || '1';
   const [currentPage, setCurrentPage] = useState(+page);
   const maxPages = Math.ceil(props.itemsCount / props.itemsPerPage);
-  const items = [];
+  const pageNumbers: number[] = [];
   let leftSide = currentPage - 2;
   if (leftSide <= 0) leftSide = 1;
   let rightSide = currentPage + 2;
   if (rightSide > maxPages) rightSide = maxPages;
   for (let number = leftSide; number <= rightSide; number++) {
-    items.push(
-      <div
-        key={number}
-        className={
-          number === currentPage ? 'round-effect active' : 'round-effect'
-        }
-        onClick={() => {
-          if (pathname === '/') {
-            setCurrentPage(number);
-            setSearch({ ...params, page: number.toString() });
-          }
-        }}
-      >
-        {number}
-      </div>
-    );
+    pageNumbers.push(number);
   }
 
   useEffect(() => {
@@ -77,7 +62,26 @@ const Pagination = (props: PaginationProps) => {
             {' '}
             &lt;{' '}
           </div>
-          {items}
+          {pageNumbers.map((pageNumber) => {
+            return (
+              <div
+                key={pageNumber}
+                className={
+                  pageNumber === currentPage
+                    ? 'round-effect active'
+                    : 'round-effect'
+                }
+                onClick={() => {
+                  if (pathname === '/') {
+                    setCurrentPage(pageNumber);
+                    setSearch({ ...params, page: pageNumber.toString() });
+                  }
+                }}
+              >
+                {pageNumber}
+              </div>
+            );
+          })}
           <div className="round-effect" onClick={nextPage}>
             {' '}
             &gt;{' '}

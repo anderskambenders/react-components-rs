@@ -16,12 +16,3 @@ export type Product = {
 export interface Props {
   children?: JSX.Element;
 }
-
-export type ApiCallContext = Response<Product> | null;
-
-export interface Response<T> {
-  total: number;
-  skip: number;
-  limit: number;
-  products: T[];
-}
