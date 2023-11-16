@@ -15,26 +15,31 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 const CardDetail = () => {
   const { product } = useLoaderData() as ProductData;
-  const CardInfo = (
-    <div className={'infoWrap'}>
-      <img className="product__img" src={product.images[0]} alt="prod-img" />
-      <h3 className={'title'}>{product.title}</h3>
-      <div className={'blockInfo'}>
-        <div>Brand: {product.brand}</div>
-        <div>Description: {product.description}</div>
-        <div>Price: {product.price}$</div>
-        <div className={'listWrap'}></div>
-      </div>
-      <div>
-        <Link to={'/'}>
-          <button className={'backButton'}>Back</button>
-        </Link>
-      </div>
-    </div>
-  );
   return (
     <div className={'characterInfo'}>
-      {product !== undefined ? CardInfo : <p>Loading...</p>}
+      {product !== undefined ? (
+        <div className={'infoWrap'}>
+          <img
+            className="product__img"
+            src={product.images[0]}
+            alt="prod-img"
+          />
+          <h3 className={'title'}>{product.title}</h3>
+          <div className={'blockInfo'}>
+            <div>Brand: {product.brand}</div>
+            <div>Description: {product.description}</div>
+            <div>Price: {product.price}$</div>
+            <div className={'listWrap'}></div>
+          </div>
+          <div>
+            <Link to={'/'}>
+              <button className={'backButton'}>Back</button>
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };

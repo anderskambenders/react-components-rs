@@ -12,22 +12,22 @@ const ListResult = () => {
   const storageData = localStorage.getItem('valueKey');
   const context = useContext(AppContext);
   const [search] = useSearchParams();
-  const [limit, setLimit] = useState(10);
   const page = Object.fromEntries(search).page || '1';
-  const skip = limit * (+page - 1);
   const [itemsCount, setItemsCount] = useState(0);
-
-  const updateLimitValue = (value: number) => {
-    setLimit(value);
-  };
+  const itemsPerPage = useAppSelector(
+    (state) => state.itemsPerPage.itemsPerPage
+  );
+  const skip = itemsPerPage * (+page - 1);
 
   useEffect(() => {
     let url;
     if (searchValue.length === 0) {
-      url = baseUrl(limit, skip);
+      url = baseUrl(itemsPerPage, skip);
     } else {
       url =
-        storageData !== null ? searchUrl(storageData) : baseUrl(limit, skip);
+        storageData !== null
+          ? searchUrl(storageData)
+          : baseUrl(itemsPerPage, skip);
     }
     context.setIsLoaded(false);
     context.setProducts([]);
@@ -36,7 +36,7 @@ const ListResult = () => {
       context.setIsLoaded(true);
       context.setProducts(result.products);
     });
-  }, [page, limit, searchValue]);
+  }, [page, itemsPerPage, searchValue]);
 
   return (
     <div className="result__container">
@@ -64,11 +64,7 @@ const ListResult = () => {
           </div>
         </div>
         {context.isLoaded && (
-          <Pagination
-            itemsCount={itemsCount}
-            itemsPerPage={limit}
-            updateLimit={updateLimitValue}
-          />
+          <Pagination itemsCount={itemsCount} itemsPerPage={itemsPerPage} />
         )}
       </div>
       <Outlet />

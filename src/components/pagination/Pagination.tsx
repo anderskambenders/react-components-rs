@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import './pagination.css';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { useAppDispatch } from '../../store/hooks';
+import { itemsPerPageSlice } from '../../store/itemsPerPage.slice';
 
 type PaginationProps = {
   itemsCount: number;
   itemsPerPage: number;
-  updateLimit: (value: number) => void;
 };
 
 const Pagination = (props: PaginationProps) => {
   const params = useParams();
+  const dispatch = useAppDispatch();
   const [search, setSearch] = useSearchParams();
   const { pathname } = useLocation();
   const page = Object.fromEntries(search).page || '1';
@@ -62,7 +64,7 @@ const Pagination = (props: PaginationProps) => {
       <div className="pagination-container">
         <select
           onChange={(e) => {
-            props.updateLimit(+e.target.value);
+            dispatch(itemsPerPageSlice.actions.set(+e.target.value));
           }}
           value={props.itemsPerPage}
         >

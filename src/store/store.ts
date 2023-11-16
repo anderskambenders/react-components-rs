@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { reducer as searchInputReducer } from './searchInput.slice';
+import { reducer as itemsPerPageReducer } from './itemsPerPage.slice';
 
 const reducers = combineReducers({
   searchInput: searchInputReducer,
+  itemsPerPage: itemsPerPageReducer,
 });
 
 export const store = configureStore({
