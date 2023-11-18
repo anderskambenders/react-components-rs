@@ -1,45 +1,44 @@
+// import { Product } from '../types';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { useGetProductQuery } from '../../store/productApi';
 import './card.css';
-import { Product } from '../types';
-import { useLoaderData, Link, LoaderFunction, defer } from 'react-router-dom';
-import { getProduct } from '../../api/api';
-
-interface ProductData {
-  product: Product;
-}
-
-export const loader: LoaderFunction = async ({ params }) => {
-  if (params && params.productId !== undefined) {
-    return defer({ product: await getProduct(+params.productId) });
-  }
-};
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { cardLoadingSlice } from '../../store/cardLoading.slice';
 
 const CardDetail = () => {
-  const { product } = useLoaderData() as ProductData;
+  const dispatch = useAppDispatch();
+  const { productId } = useParams();
+  const { data, isLoading } = useGetProductQuery(productId);
+  const cardLoading = useAppSelector((state) => state.cardLoading.isLoading);
+  const [search] = useSearchParams();
+  const currentPage = search.get('page');
+  const url = `/?page=${currentPage}`;
+  console.log(data);
+  useEffect(() => {
+    dispatch(cardLoadingSlice.actions.set(isLoading));
+  }, [cardLoading]);
+
   return (
     <div className={'characterInfo'}>
-      {product ? (
+      {data && (
         <div className={'infoWrap'}>
-          <img
-            className="product__img"
-            src={product.images[0]}
-            alt="prod-img"
-          />
-          <h3 className={'title'}>{product.title}</h3>
+          <img className="product__img" src={data.images[0]} alt="prod-img" />
+          <h3 className={'title'}>{data.title}</h3>
           <div className={'blockInfo'}>
-            <div>Brand: {product.brand}</div>
-            <div>Description: {product.description}</div>
-            <div>Price: {product.price}$</div>
+            <div>Brand: {data.brand}</div>
+            <div>Description: {data.description}</div>
+            <div>Price: {data.price}$</div>
             <div className={'listWrap'}></div>
           </div>
           <div>
-            <Link to={'/'}>
+            <Link to={url}>
               <button className={'backButton'}>Back</button>
             </Link>
           </div>
         </div>
-      ) : (
-        <p>Loading...</p>
       )}
+      {isLoading && <p>Loading...</p>}
     </div>
   );
 };

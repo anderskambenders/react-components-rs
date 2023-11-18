@@ -21,8 +21,6 @@ const SearchResult = () => {
     limit: itemsPerPage,
     skip,
   });
-
-  console.log(data);
   useEffect(() => {
     dispatch(
       productsSlice.actions.update({
