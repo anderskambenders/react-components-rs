@@ -1,8 +1,7 @@
 import Search from '../components/search/Search';
-import ListResult from '../components/list-result/ListResult';
+import SearchResult from '../components/list-result/SearchResult';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import ErrorBoundary from '../components/error-boundary/ErrorBoundary';
-import { AppContextProvider } from '../context/AppContext';
 
 const MainPage = () => {
   const { pathname } = useLocation();
@@ -18,14 +17,12 @@ const MainPage = () => {
 
   return (
     <ErrorBoundary>
-      <AppContextProvider>
-        <>
-          <Search />
-          <div onClick={handleBack}>
-            <ListResult />
-          </div>
-        </>
-      </AppContextProvider>
+      <>
+        <Search />
+        <div onClick={handleBack}>
+          <SearchResult />
+        </div>
+      </>
     </ErrorBoundary>
   );
 };

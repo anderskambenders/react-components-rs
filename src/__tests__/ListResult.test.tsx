@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import ListResult from '../components/list-result/ListResult';
+import ListResult from '../components/list-result/SearchResult';
 import { AppContext } from '../context/AppContext';
 import { MemoryRouter } from 'react-router-dom';
 const product = {
