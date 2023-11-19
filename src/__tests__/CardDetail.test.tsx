@@ -35,6 +35,7 @@ describe('Card details component', () => {
     });
 
     const buttonElement = screen.getByRole('button', { name: /Back/i });
+
     fireEvent.click(buttonElement);
 
     await waitFor(() => {

@@ -1,6 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import Pagination from '../components/pagination/Pagination';
+import { Provider } from 'react-redux';
+import { store } from '../store/store';
 
 const setSearch = vi.fn();
 const searchParams = new Map([['page', '1']]);
@@ -20,39 +22,32 @@ vi.mock('react-router-dom', () => ({
 describe('Pagination', () => {
   it('render component', () => {
     render(
-      <Pagination
-        itemsCount={100}
-        itemsPerPage={10}
-        updateLimit={function (): void {}}
-      />
+      <Provider store={store}>
+        <Pagination itemsCount={100} />;
+      </Provider>
     );
     expect(screen.getByText('<')).toBeInTheDocument();
     expect(screen.getByText('>')).toBeInTheDocument();
   });
   it('updates URL query parameter when page changes', () => {
     render(
-      <Pagination
-        itemsCount={100}
-        itemsPerPage={10}
-        updateLimit={function (): void {}}
-      />
+      <Provider store={store}>
+        <Pagination itemsCount={100} />;
+      </Provider>
     );
     const nextPage = screen.getByText('>');
     fireEvent.click(nextPage);
     expect(setSearch).toBeCalled();
   });
   it('handle events', () => {
-    const updateLimit = vi.fn();
     render(
-      <Pagination
-        itemsCount={100}
-        itemsPerPage={10}
-        updateLimit={updateLimit}
-      />
+      <Provider store={store}>
+        <Pagination itemsCount={100} />;
+      </Provider>
     );
     const input = screen.getByDisplayValue('10');
     expect(input).toBeInTheDocument();
     fireEvent.change(input, { target: { value: '20' } });
-    expect(updateLimit).toBeCalled();
+    expect(input).toHaveValue('20');
   });
 });

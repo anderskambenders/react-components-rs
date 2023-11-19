@@ -7,9 +7,6 @@ const ItemsList = () => {
   const isLoading = useAppSelector((state) => state.listLoading.isLoading);
   const products = useAppSelector((state) => state.products.products);
   const itemsCount = useAppSelector((state) => state.products.productsCount);
-  const itemsPerPage = useAppSelector(
-    (state) => state.itemsPerPage.itemsPerPage
-  );
   const [search] = useSearchParams();
   const page = search.get('page') || '1';
 
@@ -37,9 +34,7 @@ const ItemsList = () => {
           ))}
         </div>
       </div>
-      {!isLoading && (
-        <Pagination itemsCount={itemsCount} itemsPerPage={itemsPerPage} />
-      )}
+      {!isLoading && <Pagination itemsCount={itemsCount} />}
     </div>
   );
 };

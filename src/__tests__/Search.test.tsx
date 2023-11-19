@@ -1,6 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import Search from '../components/search/Search';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '../store/store';
 
 const TEST_STRING = 'Cawabanga';
 const SEARCH_DEFAULT: string = 'valueKey';
@@ -8,9 +10,11 @@ const SEARCH_PLACEHOLDER_TEXT = 'enter search param';
 
 const MockSearchComponent = () => {
   return (
-    <BrowserRouter>
-      <Search />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Search />
+      </BrowserRouter>
+    </Provider>
   );
 };
 
