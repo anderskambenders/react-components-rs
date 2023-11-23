@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import MainPage from '../pages/MainPage';
-import NotFound from '../pages/NotFound';
+import MainPage from '../../s/src/pages/MainPage';
+import NotFound from '../pages/404';
 
 const wrongPath = '/kavabanga';
 

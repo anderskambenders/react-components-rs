@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import App from '../App';
+import App from '../../s/src/App';
 
 const productDetails = {
   id: 1,

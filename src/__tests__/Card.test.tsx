@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import Card from '../components/list-result/Card';
-import App from '../App';
+import App from '../../s/src/App';
 
 const product = {
   id: 1,

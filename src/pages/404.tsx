@@ -1,6 +1,6 @@
 import './not-found.css';
 
-const NotFound = function () {
+const Page404 = function () {
   return (
     <div className={'container'}>
       <span>The page is not found</span>
@@ -8,4 +8,4 @@ const NotFound = function () {
   );
 };
 
-export default NotFound;
+export default Page404;

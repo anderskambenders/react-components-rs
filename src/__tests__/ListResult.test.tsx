@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 // import { store } from '../store/store';
 import { mockStore } from './mocks/mockStore';
-import App from '../App';
+import App from '../../s/src/App';
 // const product = {
 //   id: 1,
 //   title: 'Iphone',
