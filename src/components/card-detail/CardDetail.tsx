@@ -1,19 +1,19 @@
 // import { Product } from '../types';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+// import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { useGetProductQuery } from '../../store/productApi';
-import './card.css';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { cardLoadingSlice } from '../../store/cardLoading.slice';
 
 const CardDetail = () => {
   const dispatch = useAppDispatch();
-  const { productId } = useParams();
-  const { data, isLoading } = useGetProductQuery(productId);
+  // const { productId } = useParams();
+  // const [search] = useSearchParams();
+  const { data, isLoading } = useGetProductQuery(1);
   const cardLoading = useAppSelector((state) => state.cardLoading.isLoading);
-  const [search] = useSearchParams();
-  const currentPage = search.get('page');
-  const url = `/?page=${currentPage}`;
+
+  // const currentPage = 1;
+  // const url = `/?page=${currentPage}`;
   console.log(data);
   useEffect(() => {
     dispatch(cardLoadingSlice.actions.set(isLoading));
@@ -32,9 +32,9 @@ const CardDetail = () => {
             <div className={'listWrap'}></div>
           </div>
           <div>
-            <Link to={url}>
+            {/* <Link to={url}> */}
               <button className={'backButton'}>Back</button>
-            </Link>
+            {/* </Link> */}
           </div>
         </div>
       )}

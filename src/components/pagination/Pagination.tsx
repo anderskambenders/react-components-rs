@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-import './pagination.css';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+// import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { itemsPerPageSlice } from '../../store/itemsPerPage.slice';
 import { getPaginationNumbers } from '../../utils/getPaginationNumbers';
@@ -10,33 +9,34 @@ type PaginationProps = {
 };
 
 const Pagination = (props: PaginationProps) => {
-  const params = useParams();
+
   const dispatch = useAppDispatch();
   const itemsPerPage = useAppSelector(
     (store) => store.itemsPerPage.itemsPerPage
   );
-  const [search, setSearch] = useSearchParams();
-  const { pathname } = useLocation();
-  const page = search.get('page') || '1';
-  const [currentPage, setCurrentPage] = useState(+page);
+  // const [search, setSearch] = useSearchParams();
+  // const { pathname } = useLocation();
+  // const params = useParams();
+  // const page = search.get('page') || '1';
+  const [currentPage, setCurrentPage] = useState(1);
   const maxPages = Math.ceil(props.itemsCount / itemsPerPage);
   const pageNumbers = getPaginationNumbers(currentPage, maxPages);
 
-  useEffect(() => {
-    setSearch({ ...params, page: page });
-  }, []);
+  // useEffect(() => {
+  //   setSearch({ ...params, page: page });
+  // }, []);
 
   const nextPage = () => {
     if (currentPage < maxPages) {
       setCurrentPage(currentPage + 1);
-      setSearch({ ...params, page: (currentPage + 1).toString() });
+      // setSearch({ ...params, page: (currentPage + 1).toString() });
     }
   };
 
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      setSearch({ ...params, page: (currentPage - 1).toString() });
+      // setSearch({ ...params, page: (currentPage - 1).toString() });
     }
   };
 
@@ -67,12 +67,12 @@ const Pagination = (props: PaginationProps) => {
                     ? 'round-effect active'
                     : 'round-effect'
                 }
-                onClick={() => {
-                  if (pathname === '/') {
-                    setCurrentPage(pageNumber);
-                    setSearch({ ...params, page: pageNumber.toString() });
-                  }
-                }}
+                // onClick={() => {
+                //   if (pathname === '/') {
+                //     setCurrentPage(pageNumber);
+                //     setSearch({ ...params, page: pageNumber.toString() });
+                //   }
+                // }}
               >
                 {pageNumber}
               </div>

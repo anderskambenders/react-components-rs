@@ -1,14 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import ErrorButton from '../error-boundary/ErrorButton';
-import './search.css';
 import { useAppDispatch } from '../../store/hooks';
 import { searchInputSlice } from '../../store/searchInput.slice';
 
 const Search = () => {
   const dispatch = useAppDispatch();
-  const [searchValue, setSearchValue] = useState(
-    localStorage.getItem('valueKey') || ''
-  );
+  const [searchValue, setSearchValue] = useState('');
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);

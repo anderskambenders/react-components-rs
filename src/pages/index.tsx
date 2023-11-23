@@ -1,6 +1,8 @@
 import Search from '../components/search/Search';
 import SearchResult from '../components/list-result/SearchResult';
 import ErrorBoundary from '../components/error-boundary/ErrorBoundary';
+import { Provider } from 'react-redux';
+import { store } from '@/store/store';
 
 const Home = () => {
   // const { pathname } = useLocation();
@@ -15,6 +17,7 @@ const Home = () => {
   // };
 
   return (
+    <Provider store={store()}>
     <ErrorBoundary>
       <>
         <Search />
@@ -23,6 +26,8 @@ const Home = () => {
         </div>
       </>
     </ErrorBoundary>
+    </Provider>
+
   );
 };
 

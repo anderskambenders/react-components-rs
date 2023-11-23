@@ -1,12 +1,7 @@
-import { Product } from '@components/types';
 import { createSlice } from '@reduxjs/toolkit';
 
-interface ProductsState {
-  products: Product[];
-  productsCount: number;
-}
 
-const initialState: ProductsState = {
+const initialState = {
   products: [],
   productsCount: 0,
 };

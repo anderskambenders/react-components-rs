@@ -1,5 +1,3 @@
-import './not-found.css';
-
 const Page404 = function () {
   return (
     <div className={'container'}>

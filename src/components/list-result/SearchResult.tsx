@@ -1,5 +1,4 @@
-import './search-result.css';
-import { Outlet, useSearchParams } from 'react-router-dom';
+// import { Outlet, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useGetProductsQuery } from '../../store/productApi';
 import ItemsList from './ItemsList';
@@ -10,8 +9,8 @@ import { listLoadingSlice } from '../../store/listLoading.slice';
 const SearchResult = () => {
   const searchValue = useAppSelector((state) => state.searchInput.searchInput);
   const dispatch = useAppDispatch();
-  const [search] = useSearchParams();
-  const page = search.get('page') || '1';
+  // const [search] = useSearchParams();
+  const page = '1';
   const itemsPerPage = useAppSelector(
     (state) => state.itemsPerPage.itemsPerPage
   );
@@ -35,7 +34,7 @@ const SearchResult = () => {
   return (
     <div className="result__container">
       <ItemsList />
-      <Outlet />
+      {/* <Outlet /> */}
     </div>
   );
 };
