@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { HYDRATE } from "next-redux-wrapper";
 import { BASE_URL } from '../api/api';
+import { productsSlice } from "./products.slice";
 
 export const productsApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -20,13 +21,24 @@ export const productsApi = createApi({
           url: `/search?q=${searchValue}&limit=${limit}&skip=${skip}`,
         };
       },
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        const { setListData } = productsSlice.actions;
+        const data = await queryFulfilled;
+        dispatch(setListData(data.data));
+        console.log(data);
+      }
     }),
 
     getProduct: build.query({
       query: (id) => `/${id}`,
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        const { setProductData } = productsSlice.actions;
+          const data = await queryFulfilled;
+          dispatch(setProductData(data.data));
+      },
     }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductQuery } = productsApi;
+export const { useGetProductsQuery, useGetProductQuery,   util: { getRunningQueriesThunk } } = productsApi;
 export const { getProducts, getProduct } = productsApi.endpoints;

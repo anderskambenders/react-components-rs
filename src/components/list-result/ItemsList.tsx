@@ -2,11 +2,12 @@
 import { useAppSelector } from '../../store/hooks';
 import Card from './Card';
 import Pagination from '../pagination/Pagination';
+import { Product } from '../types';
 
 const ItemsList = () => {
   const isLoading = useAppSelector((state) => state.listLoading.isLoading);
-  const products = useAppSelector((state) => state.products.products);
-  const itemsCount = useAppSelector((state) => state.products.productsCount);
+  const products = useAppSelector((state) => state.products.products as Array<Product>);
+  // const itemsCount = useAppSelector((state) => state.products.productsCount);
   // const [search] = useSearchParams();
   // const page = search.get('page') || '1';
 
@@ -35,7 +36,7 @@ const ItemsList = () => {
           ))}
         </div>
       </div>
-      {!isLoading && <Pagination itemsCount={itemsCount} />}
+      {!isLoading && <Pagination itemsCount={10} />}
     </div>
   );
 };

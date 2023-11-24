@@ -22,7 +22,7 @@ const SearchResult = () => {
   });
   useEffect(() => {
     dispatch(
-      productsSlice.actions.update({
+      productsSlice.actions.setListData({
         products: data?.products || [],
         productsCount: data?.total || 0,
       })

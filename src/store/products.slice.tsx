@@ -1,19 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+// import { Product } from '@/components/types';
 
 const initialState = {
   products: [],
-  productsCount: 0,
+  product: null,
+  // productsCount: 0,
 };
 
 export const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    update: (state, action) => {
+    setListData: (state, action) => {
       state.products = action.payload.products;
-      state.productsCount = action.payload.productsCount;
+      // state.productsCount = action.payload.productsCount;
     },
+    setProductData: (state, action) => {
+      state.product = action.payload;
+    }
   },
 });
 
