@@ -1,11 +1,19 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import ErrorButton from '../error-boundary/ErrorButton';
-import { useAppDispatch } from '../../store/hooks';
-import { searchInputSlice } from '../../store/searchInput.slice';
+import { useRouter } from 'next/router';
 
 const Search = () => {
-  const dispatch = useAppDispatch();
   const [searchValue, setSearchValue] = useState('');
+  const router = useRouter();
+  const { query } = router;
+  const { limit } = query;
+  useEffect(() => {
+    setSearchValue((router.query.searchValue || '').toString());
+    const pageParam = router.query?.page;
+    if (!pageParam) {
+      router.push({ query: { ...router.query, skip: 0 } });
+    }
+  }, []);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -14,7 +22,7 @@ const Search = () => {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     localStorage.setItem('valueKey', searchValue);
-    dispatch(searchInputSlice.actions.set(searchValue));
+    router.push({ query: { skip: 0, searchValue, limit: limit || 10 } });
   };
 
   return (

@@ -1,11 +1,11 @@
 import Search from '../components/search/Search';
-import SearchResult from '../components/list-result/SearchResult';
 import ErrorBoundary from '../components/error-boundary/ErrorBoundary';
 import { Provider } from 'react-redux';
 import { store } from '@/store/store';
 import { wrapper } from '@/store/store';
 import { getProducts, getProduct, getRunningQueriesThunk } from '@/store/productApi';
 import { InferGetServerSidePropsType } from 'next';
+import ItemsList from '@/components/list-result/ItemsList';
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
   const { searchValue, limit, skip, productId: id } = context.query;
@@ -51,7 +51,7 @@ const Home = ({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) 
       <>
         <Search />
         <div>
-          <SearchResult />
+          <ItemsList data={data.cardsData} />
         </div>
       </>
     </ErrorBoundary>
