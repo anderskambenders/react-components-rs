@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 export interface IData {
   cardsData: Product[];
   detailsData: Product | null ;
+  cardsCount: number;
 }
 
 const ItemsList = ({ data }: {data: IData}) => {
@@ -45,7 +46,7 @@ const ItemsList = ({ data }: {data: IData}) => {
           ))}
         </div>
       </div>
-      <Pagination itemsCount={100} />
+      <Pagination itemsCount={data.cardsCount} />
     </div>
     {details && <CardDetail data={data.detailsData as Product}></CardDetail>}
     </div>

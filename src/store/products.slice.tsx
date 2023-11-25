@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   products: [],
   product: null,
-  // productsCount: 0,
+  productsCount: 0,
 };
 
 export const productsSlice = createSlice({
@@ -13,7 +13,7 @@ export const productsSlice = createSlice({
   reducers: {
     setListData: (state, action) => {
       state.products = action.payload.products;
-      // state.productsCount = action.payload.productsCount;
+      state.productsCount = action.payload.total;
     },
     setProductData: (state, action) => {
       state.product = action.payload;

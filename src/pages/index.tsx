@@ -9,7 +9,6 @@ import ItemsList from '@/components/list-result/ItemsList';
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
   const { searchValue, limit, page, details } = context.query;
-  console.log(context);
   store.dispatch(
     getProducts.initiate({
       searchValue: searchValue?.toString() || '',
@@ -26,6 +25,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     props: {
       data: {
         cardsData: store.getState().products.products,
+        cardsCount: store.getState().products.productsCount,
         detailsData: store.getState().products.product,
       },
     },
