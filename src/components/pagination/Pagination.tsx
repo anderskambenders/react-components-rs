@@ -1,5 +1,4 @@
-import { useState } from 'react';
-// import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { getPaginationNumbers } from '../../utils/getPaginationNumbers';
 import { useRouter } from 'next/router';
 
@@ -12,18 +11,15 @@ const Pagination = (props: PaginationProps) => {
   const { query } = router;
   const page = +(query?.page || 1);
   const itemsPerPage = 10;
-  // const dispatch = useAppDispatch();
-  // const itemsPerPage = useAppSelector(
-  //   (store) => store.itemsPerPage.itemsPerPage
-  // );
-  // const [search, setSearch] = useSearchParams();
-  // const { pathname } = useLocation();
-  // const params = useParams();
-  // const page = search.get('page') || '1';
   const [currentPage, setCurrentPage] = useState(page);
   const maxPages = Math.ceil(props.itemsCount / itemsPerPage);
   const pageNumbers = getPaginationNumbers(currentPage, maxPages);
 
+  useEffect(() => {
+    if (query.page) {
+      setCurrentPage(+(query?.page) as unknown as number)
+    }
+  }, [router])
 
   const nextPage = () => {
     if (currentPage < maxPages) {

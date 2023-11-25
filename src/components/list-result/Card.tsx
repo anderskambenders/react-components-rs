@@ -15,7 +15,7 @@ const Card = (props: CardProps) => {
   }
 
   return (
-    <div data-testid="card" className="list__item" key={props.id}>
+    <div  data-testid="card" className="list__item" key={props.id}>
       <ul className="item__container">
       <Image
         className="item__img"

@@ -8,7 +8,7 @@ import { InferGetServerSidePropsType } from 'next';
 import ItemsList from '@/components/list-result/ItemsList';
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
-  const { searchValue, limit, page, productId: id } = context.query;
+  const { searchValue, limit, page, details } = context.query;
   console.log(context);
   store.dispatch(
     getProducts.initiate({
@@ -17,8 +17,8 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
       skip: (+(limit || 10) * (+(page || 1) - 1)).toString() || '0',
     })
   );
-  if (id) {
-    store.dispatch(getProduct.initiate(id.toString()));
+  if (details) {
+    store.dispatch(getProduct.initiate(details.toString()));
   }
 
   await Promise.all(store.dispatch(getRunningQueriesThunk()));
@@ -33,25 +33,14 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
 });
 
 const Home = ({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  // const { pathname } = useLocation();
-  // const navigate = useNavigate();
-  // const [search] = useSearchParams();
-  // const page = Object.fromEntries(search).page || '1';
-
-  // const handleBack = () => {
-  //   if (pathname !== '/') {
-  //     navigate(`/?page=${page}`);
-  //   }
-  // };
-
-
+  console.log(data);
   return (
     <Provider store={store()}>
     <ErrorBoundary>
       <>
         <Search />
         <div>
-          <ItemsList data={data.cardsData} />
+          <ItemsList data={data} />
         </div>
       </>
     </ErrorBoundary>

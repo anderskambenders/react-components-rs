@@ -1,45 +1,53 @@
-// import { Link, useSearchParams } from 'react-router-dom';
-import { useAppSelector } from '../../store/hooks';
 import Card from './Card';
 import Pagination from '../pagination/Pagination';
 import { Product } from '../types';
-// import Link from 'next/link';
+import CardDetail from '../card-detail/CardDetail';
+import { useRouter } from 'next/router';
 
-const ItemsList = ({ data }: { data : Array<Product> }) => {
-  const isLoading = useAppSelector((state) => state.listLoading.isLoading);
-  // const products = useAppSelector((state) => state.products.products as Array<Product>);
-  // const itemsCount = useAppSelector((state) => state.products.productsCount);
-  // const [search] = useSearchParams();
-  // const page = search.get('page') || '1';
+export interface IData {
+  cardsData: Product[];
+  detailsData: Product | null ;
+}
+
+const ItemsList = ({ data }: {data: IData}) => {
+  const router = useRouter();
+  const { pathname, query } = router;
+  const { details, ...queryWithoutDetails } = query;
+  console.log(data);
 
   return (
-    <div className="result__container">
+    <div onClick={() => {
+      if (details) {
+        router.push({
+          pathname,
+          query: { ...queryWithoutDetails },
+        });
+      }
+    }} className="result__container">
     <div className="list__container">
       <div>
-        {/* {isLoading && <p>Loading...</p>} */}
         <div className="list">
-          {/* {!isLoading && data.length === 0 && (
-            <p>Sorry, no items founded</p>
-          )} */}
-          {data?.map((item, ind) => (
-            // <Link
-            //   key={ind}
-            //   className="link"
-            //   to={`about/${item.id}?page=${page}`}
-            // >
+          {data.cardsData?.map((item: Product, ind: number) => (
+              <div key={ind} onClick={() => {
+                router.push({
+                  pathname,
+                  query: { ...query, details: `${item.id}` },
+                });
+              }}>
               <Card
-                key={ind}
+
                 id={item.id}
                 image={item.images}
                 title={item.title}
                 description={item.description}
               />
-            // </Link>
+              </div>
           ))}
         </div>
       </div>
-      {!isLoading && <Pagination itemsCount={100} />}
+      <Pagination itemsCount={100} />
     </div>
+    {details && <CardDetail data={data.detailsData as Product}></CardDetail>}
     </div>
   );
 };
