@@ -5,13 +5,11 @@ import { useRouter } from 'next/router';
 const Search = () => {
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
-  const { query } = router;
-  const { limit } = query;
   useEffect(() => {
     setSearchValue((router.query.searchValue || '').toString());
     const pageParam = router.query?.page;
     if (!pageParam) {
-      router.push({ query: { ...router.query, skip: 0 } });
+      router.push({ query: { ...router.query, page: 1 } });
     }
   }, []);
 
@@ -22,7 +20,7 @@ const Search = () => {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     localStorage.setItem('valueKey', searchValue);
-    router.push({ query: { skip: 0, searchValue, limit: limit || 10 } });
+    router.push({ query: { page: 1, searchValue} });
   };
 
   return (

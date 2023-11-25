@@ -1,42 +1,43 @@
 import { useState } from 'react';
 // import { useLocation, useParams, useSearchParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { itemsPerPageSlice } from '../../store/itemsPerPage.slice';
 import { getPaginationNumbers } from '../../utils/getPaginationNumbers';
+import { useRouter } from 'next/router';
 
 type PaginationProps = {
   itemsCount: number;
 };
 
 const Pagination = (props: PaginationProps) => {
-
-  const dispatch = useAppDispatch();
-  const itemsPerPage = useAppSelector(
-    (store) => store.itemsPerPage.itemsPerPage
-  );
+  const router = useRouter();
+  const { query } = router;
+  const page = +(query?.page || 1);
+  const itemsPerPage = 10;
+  // const dispatch = useAppDispatch();
+  // const itemsPerPage = useAppSelector(
+  //   (store) => store.itemsPerPage.itemsPerPage
+  // );
   // const [search, setSearch] = useSearchParams();
   // const { pathname } = useLocation();
   // const params = useParams();
   // const page = search.get('page') || '1';
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(page);
   const maxPages = Math.ceil(props.itemsCount / itemsPerPage);
   const pageNumbers = getPaginationNumbers(currentPage, maxPages);
 
-  // useEffect(() => {
-  //   setSearch({ ...params, page: page });
-  // }, []);
 
   const nextPage = () => {
     if (currentPage < maxPages) {
       setCurrentPage(currentPage + 1);
-      // setSearch({ ...params, page: (currentPage + 1).toString() });
+      delete query.details;
+      router.push({ query: { ...query, page: `${currentPage + 1}` } });
     }
   };
 
   const prevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      // setSearch({ ...params, page: (currentPage - 1).toString() });
+      delete query.details;
+      router.push({ query: { ...query, page: `${currentPage - 1}` } });
     }
   };
 
@@ -44,9 +45,6 @@ const Pagination = (props: PaginationProps) => {
     <>
       <div className="pagination-container">
         <select
-          onChange={(e) => {
-            dispatch(itemsPerPageSlice.actions.set(+e.target.value));
-          }}
           value={itemsPerPage}
         >
           <option value="10">10</option>
@@ -67,12 +65,11 @@ const Pagination = (props: PaginationProps) => {
                     ? 'round-effect active'
                     : 'round-effect'
                 }
-                // onClick={() => {
-                //   if (pathname === '/') {
-                //     setCurrentPage(pageNumber);
-                //     setSearch({ ...params, page: pageNumber.toString() });
-                //   }
-                // }}
+                onClick={() => {
+                    setCurrentPage(pageNumber);
+                    delete query.details;
+                    router.push({ query: { ...query, page: `${pageNumber}` } });
+                }}
               >
                 {pageNumber}
               </div>

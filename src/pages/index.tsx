@@ -8,12 +8,13 @@ import { InferGetServerSidePropsType } from 'next';
 import ItemsList from '@/components/list-result/ItemsList';
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
-  const { searchValue, limit, skip, productId: id } = context.query;
+  const { searchValue, limit, page, productId: id } = context.query;
+  console.log(context);
   store.dispatch(
     getProducts.initiate({
       searchValue: searchValue?.toString() || '',
       limit: limit?.toString() || '10',
-      skip: skip?.toString() || '0',
+      skip: (+(limit || 10) * (+(page || 1) - 1)).toString() || '0',
     })
   );
   if (id) {
@@ -43,7 +44,6 @@ const Home = ({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) 
   //   }
   // };
 
-  console.log(data)
 
   return (
     <Provider store={store()}>

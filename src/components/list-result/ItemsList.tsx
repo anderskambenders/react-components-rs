@@ -3,6 +3,7 @@ import { useAppSelector } from '../../store/hooks';
 import Card from './Card';
 import Pagination from '../pagination/Pagination';
 import { Product } from '../types';
+// import Link from 'next/link';
 
 const ItemsList = ({ data }: { data : Array<Product> }) => {
   const isLoading = useAppSelector((state) => state.listLoading.isLoading);
@@ -37,7 +38,7 @@ const ItemsList = ({ data }: { data : Array<Product> }) => {
           ))}
         </div>
       </div>
-      {!isLoading && <Pagination itemsCount={10} />}
+      {!isLoading && <Pagination itemsCount={100} />}
     </div>
     </div>
   );

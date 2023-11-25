@@ -25,7 +25,6 @@ export const productsApi = createApi({
         const { setListData } = productsSlice.actions;
         const data = await queryFulfilled;
         dispatch(setListData(data.data));
-        console.log(data);
       }
     }),
 
