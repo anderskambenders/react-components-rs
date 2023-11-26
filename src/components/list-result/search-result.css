@@ -41,7 +41,6 @@
 }
 
 .item__img {
-  max-height: 150px;
   object-fit: contain;
 }
 

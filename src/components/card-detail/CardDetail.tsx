@@ -1,17 +1,35 @@
 import { useRouter } from 'next/router';
 import { Product } from '../types';
+import Image from "next/image";
+import { blurDataURL } from '../list-result/Card';
 
 const CardDetail = ({ data } : { data: Product }) => {
   const router = useRouter();
   const { query, pathname } = router;
-  const { details: id, ...queryWithoutDetails } = query;
-  console.log(id)
+  const {  ...queryWithoutDetails } = query;
+  const myLoader = () => {
+    return data.images[0];
+  }
 
   return (
     <div className={'characterInfo'}>
       {data && (
         <div className={'infoWrap'}>
-          <img className="product__img" src={data.images[0]} alt="prod-img" />
+          <Image
+        className="product__img"
+        loader={myLoader}
+        src={data.images[0]}
+        alt={'product-img'}
+        width={200}
+        height={180}
+        unoptimized={true}
+        style={{
+          width: 'auto',
+          height: 'auto',
+        }}
+        placeholder="blur"
+        blurDataURL={blurDataURL}
+      />
           <h3 className={'title'}>{data.title}</h3>
           <div className={'blockInfo'}>
             <div>Brand: {data.brand}</div>
