@@ -28,7 +28,8 @@ const ItemsList = ({ data }: {data: IData}) => {
     <div className="list__container">
       <div>
         <div className="list">
-          {data.cardsData?.map((item: Product, ind: number) => (
+          {(data.cardsData.length === 0) && (<p>Sorry, no items founded</p>)}
+          {(data.cardsData?.map((item: Product, ind: number) => (
               <div key={ind} onClick={() => {
                 router.push({
                   pathname,
@@ -43,7 +44,7 @@ const ItemsList = ({ data }: {data: IData}) => {
                 description={item.description}
               />
               </div>
-          ))}
+          )))}
         </div>
       </div>
       <Pagination itemsCount={data.cardsCount} />

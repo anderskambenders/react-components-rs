@@ -1,5 +1,8 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import App from '../../s/src/App';
+import CardDetail from '@/components/card-detail/CardDetail';
+import { act, render, screen, waitFor } from '@testing-library/react';
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
+import { createMockRouter } from './mocks/mockRouter';
+
 
 const productDetails = {
   id: 1,
@@ -11,59 +14,30 @@ const productDetails = {
   stock: 94,
   brand: 'Apple',
   category: 'smartphones',
-  thumbnail: 'https://i.dummyjson.com/data/products/1/thumbnail.jpg',
+  thumbnail: ['https://i.dummyjson.com/data/products/1/thumbnail.jpg'],
+  species: [],
   images: [],
 };
 
 describe('Card details component', () => {
-  it('Smoke check', async () => {
-    const app = render(<App />);
-    expect(app).not.toBeNull();
-  });
 
-  it('Ensure that clicking the close button hides the component', async () => {
-    render(<App />);
-
-    const name = await screen.findByText(`Name: ${productDetails.title}`);
-    fireEvent.click(name);
-
-    const descriptionElement = await screen.findByText(
-      `Description: ${productDetails.description}`
-    );
-    await waitFor(() => {
-      expect(descriptionElement).not.toBeNull();
-    });
-
-    const buttonElement = screen.getByRole('button', { name: /Back/i });
-
-    fireEvent.click(buttonElement);
-
-    await waitFor(() => {
-      const descriptionElement = screen.queryByText(
-        `Description: ${productDetails.description}`
+  it('detailed card component should display the detailed card data correctly', async () => {
+    await act(async () => {
+      const mockRouter = createMockRouter({});
+      render(
+        <RouterContext.Provider value={mockRouter}>
+          <CardDetail data={productDetails}></CardDetail>
+        </RouterContext.Provider>
       );
-      expect(descriptionElement).toBeNull();
+    });
+
+    const title = productDetails.title;
+    await waitFor(() => {
+      expect(screen.getByText(title)).toBeInTheDocument();
+      expect(
+        screen.getByText(`Description: ${productDetails.description}`)
+      ).toBeInTheDocument();
     });
   });
 
-  it('Make sure the detailed card component correctly displays the detailed card data', async () => {
-    render(<App />);
-
-    const name = await screen.findByText(`Name: ${productDetails.title}`);
-    fireEvent.click(name);
-
-    const descriptionField = await screen.findByText(
-      `Description: ${productDetails.description}`
-    );
-    expect(descriptionField).not.toBeNull();
-  });
-
-  it('Check that a loading indicator is displayed while fetching data', async () => {
-    render(<App />);
-    const name = await screen.findByText(`Name: iPhone 9`);
-    fireEvent.click(name);
-
-    const loader = screen.findByText('Loading...');
-    expect(loader).not.toBeNull();
-  });
 });

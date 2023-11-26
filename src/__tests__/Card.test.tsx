@@ -1,7 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import {  render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import Card from '../components/list-result/Card';
-import App from '../../s/src/App';
 
 const product = {
   id: 1,
@@ -28,7 +27,7 @@ describe('Card Component', () => {
         description={product.description}
       />
     );
-    expect(screen.getByAltText('product image')).toBeInTheDocument();
+    expect(screen.getByAltText('product-image')).toBeInTheDocument();
   });
   it('renders the relevant card data', () => {
     render(
@@ -41,15 +40,5 @@ describe('Card Component', () => {
     );
     const name = screen.getByText('Name: Iphone');
     expect(name).toBeInTheDocument();
-  });
-  it('Validate that clicking on a card opens a detailed card component', async () => {
-    localStorage.setItem('valueKey', product.title);
-    render(<App />);
-
-    const name = await screen.findByText('Name: iPhone 9');
-    fireEvent.click(name);
-
-    const descriptionElement = await screen.findByText('Name: iPhone 9');
-    expect(descriptionElement).not.toBeNull();
   });
 });

@@ -1,8 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import Pagination from '../components/pagination/Pagination';
-import { Provider } from 'react-redux';
-import { store } from '../store/store';
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
+import { createMockRouter } from './mocks/mockRouter';
+import userEvent from '@testing-library/user-event';
 
 const setSearch = vi.fn();
 const searchParams = new Map([['page', '1']]);
@@ -21,29 +22,39 @@ vi.mock('react-router-dom', () => ({
 
 describe('Pagination', () => {
   it('render component', () => {
+    const mockRouter = createMockRouter({});
     render(
-      <Provider store={store}>
+      <RouterContext.Provider value={mockRouter}>
         <Pagination itemsCount={100} />;
-      </Provider>
+        </RouterContext.Provider>
     );
     expect(screen.getByText('<')).toBeInTheDocument();
     expect(screen.getByText('>')).toBeInTheDocument();
   });
-  it('updates URL query parameter when page changes', () => {
+  it('updates URL query parameter when page changes', async () => {
+    const mockRouter = createMockRouter({});
     render(
-      <Provider store={store}>
+      <RouterContext.Provider value={mockRouter}>
         <Pagination itemsCount={100} />;
-      </Provider>
+        </RouterContext.Provider>
     );
+
     const nextPage = screen.getByText('>');
-    fireEvent.click(nextPage);
-    expect(setSearch).toBeCalled();
+    expect(nextPage).toBeInTheDocument();
+
+    await act(async () => {
+      await userEvent.click(nextPage);
+    });
+    expect(mockRouter.push).toBeCalledWith({
+      query: { page: "2" },
+    });
   });
   it('handle events', () => {
+    const mockRouter = createMockRouter({});
     render(
-      <Provider store={store}>
+      <RouterContext.Provider value={mockRouter}>
         <Pagination itemsCount={100} />;
-      </Provider>
+        </RouterContext.Provider>
     );
     const input = screen.getByDisplayValue('10');
     expect(input).toBeInTheDocument();

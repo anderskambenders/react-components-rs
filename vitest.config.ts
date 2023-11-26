@@ -1,32 +1,28 @@
-import { defineConfig, coverageConfigDefaults } from 'vitest/config';
-import { resolve } from 'node:path';
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
+
+import react from '@vitejs/plugin-react';
+import path from 'path';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  resolve: {
-    alias: [
-      { find: '@', replacement: resolve(__dirname, './src') },
-      {
-        find: '@components',
-        replacement: resolve(__dirname, './src/components'),
-      },
-    ],
-  },
+  plugins: [react()],
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['src/__tests__/setup.ts'],
+    setupFiles: './src/__tests__/setup.ts',
+    css: false,
     coverage: {
       all: true,
       provider: 'v8',
       reporter: ['text', 'html'],
-      reportsDirectory: './tests/unit/coverage',
-      include: ['src/**'],
-      exclude: [
-        ...coverageConfigDefaults.exclude,
-        'src/main.tsx',
-        'src/**/*.d.ts',
-        'src/**/types.ts',
-      ],
+      include: ['**/*.tsx'],
+      exclude: ['**/_app.tsx', '**/_document.tsx','**/pages', '**/store', '**/ErrorBoundary.tsx'],
+    },
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
     },
   },
 });

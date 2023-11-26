@@ -22,10 +22,9 @@ export const productsApi = createApi({
         };
       },
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-        const { setListData, setMeta } = productsSlice.actions;
+        const { setListData } = productsSlice.actions;
         const data = await queryFulfilled;
         dispatch(setListData(data.data));
-        dispatch(setMeta(data.meta))
       }
     }),
 
