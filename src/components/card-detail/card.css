@@ -1,0 +1,46 @@
+.characterInfo {
+  position: relative;
+  width: 30%;
+  margin-top: 20px;
+}
+
+.infoWrap {
+  position: sticky;
+  top: 20px;
+  background: #ebdddd;
+  text-align: center;
+  font-size: 18px;
+  border: 1px solid rgb(101, 67, 173);
+  border-radius: 15px;
+}
+
+.title {
+  margin: 20px 0 0 0;
+  filter: drop-shadow(2px 1px 2px red);
+  color: rgb(78, 17, 138);
+}
+
+.blockInfo {
+  padding: 10px 0;
+}
+
+.blockInfo div {
+  padding: 2px 0;
+}
+
+.listWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.product__img {
+  height: 300px;
+  max-width: 400px;
+  object-fit: contain;
+}
+
+.list {
+  list-style: none;
+  text-align: start;
+  padding: 0 4px;
+}
