@@ -1,8 +1,7 @@
 import CardDetail from '@/components/card-detail/CardDetail';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
-import { createMockRouter } from './mocks/mockRouter';
-
+import { createMockRouter } from '../../__tests__/mocks/mockRouter';
 
 const productDetails = {
   id: 1,
@@ -20,7 +19,6 @@ const productDetails = {
 };
 
 describe('Card details component', () => {
-
   it('detailed card component should display the detailed card data correctly', async () => {
     await act(async () => {
       const mockRouter = createMockRouter({});
@@ -39,5 +37,4 @@ describe('Card details component', () => {
       ).toBeInTheDocument();
     });
   });
-
 });

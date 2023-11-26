@@ -17,7 +17,13 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'html'],
       include: ['**/*.tsx'],
-      exclude: ['**/_app.tsx', '**/_document.tsx','**/pages', '**/store', '**/ErrorBoundary.tsx'],
+      exclude: [
+        '**/_app.tsx',
+        '**/_document.tsx',
+        '**/pages',
+        '**/store',
+        '**/ErrorBoundary.tsx',
+      ],
     },
   },
   resolve: {

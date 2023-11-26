@@ -16,7 +16,7 @@ export const productsSlice = createSlice({
     },
     setProductData: (state, action) => {
       state.product = action.payload;
-    }
+    },
   },
 });
 

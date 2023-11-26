@@ -8,15 +8,15 @@ const reducers = combineReducers({
   products: productsReducer,
 });
 
-export const store = () => configureStore({
-  reducer: reducers,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(productsApi.middleware),
-});
+export const store = () =>
+  configureStore({
+    reducer: reducers,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(productsApi.middleware),
+  });
 
 export type RootState = ReturnType<typeof reducers>;
 export type AppStore = ReturnType<typeof store>;
 export type AppDispatch = AppStore['dispatch'];
 
 export const wrapper = createWrapper<AppStore>(store, { debug: true });
-

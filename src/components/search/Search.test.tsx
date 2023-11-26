@@ -1,20 +1,25 @@
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import Search from '../components/search/Search';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
+import Search from './Search';
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
 import userEvent from '@testing-library/user-event';
-import { createMockRouter } from './mocks/mockRouter';
+import { createMockRouter } from '../../__tests__/mocks/mockRouter';
 
 const TEST_STRING = 'Cawabanga';
 const SEARCH_DEFAULT: string = 'valueKey';
 const SEARCH_PLACEHOLDER_TEXT = 'enter search param';
 
-
 const MockSearchComponent = () => {
   const mockRouter = createMockRouter({});
   return (
     <RouterContext.Provider value={mockRouter}>
-    <Search />
-  </RouterContext.Provider>
+      <Search />
+    </RouterContext.Provider>
   );
 };
 
@@ -35,7 +40,7 @@ describe('Search component', () => {
     fireEvent.click(buttonElement);
 
     expect(localStorage.getItem(SEARCH_DEFAULT)).toEqual(TEST_STRING);
-  })
+  });
   it('clicking the Search button should set search parameters', async () => {
     const mockRouter = createMockRouter({});
     act(() => {

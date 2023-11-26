@@ -12,15 +12,15 @@ const Pagination = (props: PaginationProps) => {
   const page = +(query?.page || 1);
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(page);
-  const [limit, setLimit] = useState(10)
+  const [limit, setLimit] = useState(10);
   const maxPages = Math.ceil(props.itemsCount / itemsPerPage);
   const pageNumbers = getPaginationNumbers(currentPage, maxPages);
 
   useEffect(() => {
     if (query.page) {
-      setCurrentPage(+(query?.page) as unknown as number)
+      setCurrentPage(+query?.page as unknown as number);
     }
-  }, [router])
+  }, [router]);
 
   const nextPage = () => {
     if (currentPage < maxPages) {
@@ -42,11 +42,13 @@ const Pagination = (props: PaginationProps) => {
     <>
       <div className="pagination-container">
         <select
-        onChange={(e) => {
-          setLimit(+e.target.value)
-          delete query.details;
-          router.push({ query: { ...query, limit: +e.target.value, page: 1 } });
-        }}
+          onChange={(e) => {
+            setLimit(+e.target.value);
+            delete query.details;
+            router.push({
+              query: { ...query, limit: +e.target.value, page: 1 },
+            });
+          }}
           value={limit}
         >
           <option value="10">10</option>
@@ -68,9 +70,9 @@ const Pagination = (props: PaginationProps) => {
                     : 'round-effect'
                 }
                 onClick={() => {
-                    setCurrentPage(pageNumber);
-                    delete query.details;
-                    router.push({ query: { ...query, page: `${pageNumber}` } });
+                  setCurrentPage(pageNumber);
+                  delete query.details;
+                  router.push({ query: { ...query, page: `${pageNumber}` } });
                 }}
               >
                 {pageNumber}

@@ -1,8 +1,8 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import Pagination from '../components/pagination/Pagination';
+import Pagination from './Pagination';
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
-import { createMockRouter } from './mocks/mockRouter';
+import { createMockRouter } from '../../__tests__/mocks/mockRouter';
 import userEvent from '@testing-library/user-event';
 
 const setSearch = vi.fn();
@@ -26,7 +26,7 @@ describe('Pagination', () => {
     render(
       <RouterContext.Provider value={mockRouter}>
         <Pagination itemsCount={100} />;
-        </RouterContext.Provider>
+      </RouterContext.Provider>
     );
     expect(screen.getByText('<')).toBeInTheDocument();
     expect(screen.getByText('>')).toBeInTheDocument();
@@ -36,7 +36,7 @@ describe('Pagination', () => {
     render(
       <RouterContext.Provider value={mockRouter}>
         <Pagination itemsCount={100} />;
-        </RouterContext.Provider>
+      </RouterContext.Provider>
     );
 
     const nextPage = screen.getByText('>');
@@ -46,7 +46,7 @@ describe('Pagination', () => {
       await userEvent.click(nextPage);
     });
     expect(mockRouter.push).toBeCalledWith({
-      query: { page: "2" },
+      query: { page: '2' },
     });
   });
   it('handle events', () => {
@@ -54,7 +54,7 @@ describe('Pagination', () => {
     render(
       <RouterContext.Provider value={mockRouter}>
         <Pagination itemsCount={100} />;
-        </RouterContext.Provider>
+      </RouterContext.Provider>
     );
     const input = screen.getByDisplayValue('10');
     expect(input).toBeInTheDocument();

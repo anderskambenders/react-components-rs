@@ -1,6 +1,6 @@
-import {  render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import Card from '../components/list-result/Card';
+import Card from './Card';
 
 const product = {
   id: 1,

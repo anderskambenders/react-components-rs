@@ -6,40 +6,42 @@
 }
 
 .pagination-container > div {
-padding-top:10px;
+  padding-top: 10px;
 }
-.paginate-ctn{
-    display: flex;
+.paginate-ctn {
+  display: flex;
 }
-.round-effect{
-  color:#11a7a4;
-  cursor:pointer;
-  font-size:16px;
-  text-align:center;
+.round-effect {
+  color: #11a7a4;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
   padding: 5px 5px 8px 5px;
   border-radius: 50%;
   height: 20px;
   width: 20px;
-  margin:5px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  margin: 5px;
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
   text-decoration: none;
 }
 
-.round-effect:hover{
+.round-effect:hover {
   text-decoration: none;
-  background:#67e6de;
-  color:#FFF;
+  background: #67e6de;
+  color: #fff;
 }
 .round-effect:hover a {
   text-decoration: none;
-  color:#FFF;
+  color: #fff;
 }
 
-.active{
-  background:#67e6de;
-  color:#FFF;
+.active {
+  background: #67e6de;
+  color: #fff;
 }
 a:link {
   text-decoration: none;
-  color:#67e6de;
+  color: #67e6de;
 }

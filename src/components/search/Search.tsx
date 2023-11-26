@@ -20,7 +20,7 @@ const Search = () => {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     localStorage.setItem('valueKey', searchValue);
-    router.push({ query: { page: 1, searchValue} });
+    router.push({ query: { page: 1, searchValue } });
   };
 
   return (

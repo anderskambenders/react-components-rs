@@ -31,9 +31,9 @@
 }
 
 .link {
-    cursor: pointer;
-    color: black;
-    text-decoration: none;
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
 }
 
 .item {
@@ -43,5 +43,3 @@
 .item__img {
   object-fit: contain;
 }
-
-
