@@ -3,7 +3,7 @@ import { formInputs } from '../components/formInputs';
 const UncontrolledCompFormPage = () => {
   return (
     <>
-      <h2>React Hook Form</h2>
+      <h2>Uncontrolled Components Form</h2>
       <form>
         {formInputs.map((item) => {
           return (
