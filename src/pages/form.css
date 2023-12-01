@@ -1,0 +1,21 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+input {
+  min-width: 75px;
+  margin-bottom: 20px;
+}
+
+input[type='file'] {
+  color: #a1a0a0;
+}
+
+button[type='submit'] {
+  width: 100%;
+}
