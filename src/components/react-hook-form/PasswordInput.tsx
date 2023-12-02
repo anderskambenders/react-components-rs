@@ -1,26 +1,7 @@
 import { RegisterOptions, UseFormRegisterReturn } from 'react-hook-form';
 import { FormDataKeys, IData } from '../../types';
 import { useEffect, useState } from 'react';
-import { passwordValidation } from '../../utils/validation';
-import { ValidationError } from 'yup';
-
-async function showPasswordStrength(password: string): Promise<number> {
-  const maxStrength = 4;
-  try {
-    await passwordValidation.validate(
-      {
-        password,
-      },
-      { abortEarly: false }
-    );
-    return maxStrength;
-  } catch (error) {
-    if (error instanceof ValidationError) {
-      return maxStrength - error.inner.length;
-    }
-    return 0;
-  }
-}
+import setPasswordStrength from '../../utils/countPasswordStrength';
 
 const PasswordInput = ({
   error,
@@ -41,7 +22,7 @@ const PasswordInput = ({
 
   useEffect(() => {
     if (watchPassword)
-      showPasswordStrength(watchPassword).then((strength) => {
+      setPasswordStrength(watchPassword).then((strength) => {
         setStrength(strength);
       });
   }, [watchPassword]);
