@@ -22,7 +22,7 @@ const UncontrolledCompFormPage = () => {
   const genderInputRef = useRef<HTMLSelectElement>(null);
   const countriesRef = useRef<HTMLInputElement>(null);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-  const [passwordStrength, setPasswordStrength] = useState(0);
+  const [, setPasswordStrength] = useState(0);
   const inputRefsArr = [
     nameInputRef,
     ageInputRef,
