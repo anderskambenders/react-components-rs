@@ -7,7 +7,7 @@ const initialState = {
     'Albania',
     'Algeria',
     'American Samoa',
-    'AndorrA',
+    'Andorra',
     'Angola',
     'Anguilla',
     'Antarctica',

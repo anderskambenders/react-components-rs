@@ -1,14 +1,13 @@
 import { RegisterOptions, UseFormRegisterReturn } from 'react-hook-form';
 import { FormDataKeys, IData } from '../../types';
 import { useEffect, useState } from 'react';
-
-import { passwordSchema } from '../../utils/validation';
+import { passwordValidation } from '../../utils/validation';
 import { ValidationError } from 'yup';
 
-export async function showPasswordStrength(password: string): Promise<number> {
+async function showPasswordStrength(password: string): Promise<number> {
   const maxStrength = 4;
   try {
-    await passwordSchema.validate(
+    await passwordValidation.validate(
       {
         password,
       },

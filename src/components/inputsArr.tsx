@@ -19,18 +19,6 @@ export const inputsArr = [
     name: FormDataKeys.email,
     inputId: 'email',
   },
-  // {
-  //   labelText: 'Password',
-  //   inputType: 'password',
-  //   name: FormDataKeys.password,
-  //   inputId: 'password',
-  // },
-  // {
-  //   labelText: 'Confirm password',
-  //   inputType: 'password',
-  //   name: FormDataKeys.passwordRepeat,
-  //   inputId: 'confirmPassword',
-  // },
   {
     labelText: 'Upload image',
     inputType: 'file',
