@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'store/hooks';
 import { dataListSlice } from 'store/formData.slice';
 import FormInput from '../components/uncontrolled-form/FormInput';
+import PasswordInput from '../components/uncontrolled-form/PasswordInput';
+import CountryInput from '../components/uncontrolled-form/CountryInput';
 
 const UncontrolledCompFormPage = () => {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const UncontrolledCompFormPage = () => {
   const genderInputRef = useRef<HTMLSelectElement>(null);
   const countriesRef = useRef<HTMLInputElement>(null);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-  const [, setPasswordStrength] = useState(0);
+  const [passwordStrength, setPasswordStrength] = useState(0);
   const inputRefsArr = [
     nameInputRef,
     ageInputRef,
@@ -111,18 +113,17 @@ const UncontrolledCompFormPage = () => {
             />
           );
         })}
+        <PasswordInput
+          passwordRef={passwordInputRef}
+          passwordRepeatRef={passwordRepeatRef}
+          strength={passwordStrength}
+          error={{
+            errorPassword: formErrors['password'],
+            errorPasswordRepeat: formErrors['passwordRepeat'],
+          }}
+        />
+        <CountryInput ref={countriesRef} error={formErrors['country']} />
         <div>
-          <div>
-            <label htmlFor="countries">Countries:</label>
-            <input
-              id="countries"
-              type="text"
-              placeholder="Choose country..."
-              list="countries-list"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col w-full items-start input-container">
           <label htmlFor="gender">Gender:</label>
           <select id="gender">
             <option value="male">Male</option>

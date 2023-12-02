@@ -1,16 +1,12 @@
-import { RegisterOptions, UseFormRegisterReturn } from 'react-hook-form';
-import { FormDataKeys, IData } from '../../types';
 import { useAppSelector } from '../../store/hooks';
+import { MutableRefObject } from 'react';
 
 const CountriesInput = ({
+  ref,
   error,
-  register,
 }: {
+  ref: MutableRefObject<HTMLInputElement | null>;
   error?: string;
-  register: (
-    name: FormDataKeys,
-    options?: RegisterOptions<IData, FormDataKeys> | undefined
-  ) => UseFormRegisterReturn<FormDataKeys>;
 }) => {
   const countries = useAppSelector((state) => state.countriesReducer.countries);
   return (
@@ -22,8 +18,8 @@ const CountriesInput = ({
           type="text"
           className="w-full"
           placeholder="Choose country..."
-          {...register(FormDataKeys.country)}
           list="countries-list"
+          ref={ref}
         />
         <datalist id="countries-list">
           {countries.map((country, index) => (
