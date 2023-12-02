@@ -1,15 +1,15 @@
-import { formInputs } from '../components/formInputs';
+import { inputsArr } from '../components/inputsArr';
 
 const UncontrolledCompFormPage = () => {
   return (
     <>
       <h2>Uncontrolled Components Form</h2>
       <form>
-        {formInputs.map((item) => {
+        {inputsArr.map((item) => {
           return (
             <div key={`react-hook-form-${item.name}`}>
               <div>
-                <label htmlFor={item.inputId}>{item.lableText}:</label>
+                <label htmlFor={item.inputId}>{item.labelText}:</label>
                 <input id={item.inputId} type={item.inputType} />
                 <div />
               </div>

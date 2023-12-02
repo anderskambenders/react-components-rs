@@ -21,10 +21,10 @@ const Main = () => {
             <li> Age: {item.age}</li>
             <li>Email: {item.email}</li>
             <li>Password: {item.password}</li>
-            <li>Confirm password: {item.confirmPassword}</li>
+            <li>Confirm password: {item.passwordRepeat}</li>
             <li>Country: {item.country}</li>
             <li>Gender: {item.gender}</li>
-            <li> Accept T&C: {item.tc} </li>
+            <li> Accept T&C: {item.accept} </li>
           </ul>
         </div>
       ))}
