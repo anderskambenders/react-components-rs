@@ -55,7 +55,7 @@ export const validationSchema = object({
     }),
 });
 
-export const passwordSchema = object({
+export const passwordValidation = object({
   password: string()
     .required('This is a required field')
     .matches(/^(?=.*[a-zа-я])/, 'Must contain at least one lowercase character')

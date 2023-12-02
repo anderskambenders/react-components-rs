@@ -15,6 +15,7 @@ const ReactHookFormPage = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     mode: 'all',
@@ -47,6 +48,7 @@ const ReactHookFormPage = () => {
             errorPasswordRepeat: errors.passwordRepeat?.message,
           }}
           register={register}
+          watchPassword={watch('password')}
         />
         <div>
           <div>
