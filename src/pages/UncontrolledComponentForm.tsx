@@ -1,14 +1,15 @@
 import { useRef, useState } from 'react';
 import { inputsArr } from '../components/inputsArr';
 import countPasswordStrength from '../utils/countPasswordStrength';
-import { validationSchema } from 'utils/validation';
+import { validationSchema } from '../utils/validation';
 import { ValidationError } from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from 'store/hooks';
-import { dataListSlice } from 'store/formData.slice';
+import { useAppDispatch } from '../store/hooks';
+import { dataListSlice } from '../store/formData.slice';
 import FormInput from '../components/uncontrolled-form/FormInput';
 import PasswordInput from '../components/uncontrolled-form/PasswordInput';
 import CountryInput from '../components/uncontrolled-form/CountryInput';
+import GenderInput from '../components/uncontrolled-form/GenderInput';
 
 const UncontrolledCompFormPage = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const UncontrolledCompFormPage = () => {
   const passwordRepeatRef = useRef<HTMLInputElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const acceptRef = useRef<HTMLInputElement>(null);
-  const genderInputRef = useRef<HTMLSelectElement>(null);
+  const genderInputRef = useRef<HTMLInputElement>(null);
   const countriesRef = useRef<HTMLInputElement>(null);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [passwordStrength, setPasswordStrength] = useState(0);
@@ -123,13 +124,7 @@ const UncontrolledCompFormPage = () => {
           }}
         />
         <CountryInput ref={countriesRef} error={formErrors['country']} />
-        <div>
-          <label htmlFor="gender">Gender:</label>
-          <select id="gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-        </div>
+        <GenderInput ref={genderInputRef} />
         <button type="submit">Submit</button>
       </form>
     </>
