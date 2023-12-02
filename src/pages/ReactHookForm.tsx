@@ -1,15 +1,15 @@
 import { useAppDispatch } from '../store/hooks';
-import PasswordInput from '../components/react-hook/PasswordInput';
+import PasswordInput from '../components/react-hook-form/PasswordInput';
 import { inputsArr } from '../components/inputsArr';
 import './form.css';
 import { dataListSlice } from '../store/formData.slice';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import FormInput from '../components/react-hook/FormInput';
+import FormInput from '../components/react-hook-form/FormInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from '../utils/validation';
-import CountriesInput from '../components/react-hook/CountryInput';
-import GenderInput from '../components/react-hook/GenderInput';
+import CountriesInput from '../components/react-hook-form/CountryInput';
+import GenderInput from '../components/react-hook-form/GenderInput';
 
 const ReactHookFormPage = () => {
   const navigate = useNavigate();
