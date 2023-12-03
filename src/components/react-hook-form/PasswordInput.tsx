@@ -2,6 +2,8 @@ import { RegisterOptions, UseFormRegisterReturn } from 'react-hook-form';
 import { FormDataKeys, IData } from '../../types';
 import { useEffect, useState } from 'react';
 import setPasswordStrength from '../../utils/countPasswordStrength';
+import passClosed from '../../assets/pass-closed.png';
+import passOpened from '../../assets/pass-closed.png';
 
 const PasswordInput = ({
   error,
@@ -19,6 +21,7 @@ const PasswordInput = ({
   ) => UseFormRegisterReturn<FormDataKeys>;
 }) => {
   const [strength, setStrength] = useState(0);
+  const [passwordType, setPasswordType] = useState('password');
 
   useEffect(() => {
     if (watchPassword)
@@ -30,13 +33,28 @@ const PasswordInput = ({
     <>
       <div>
         <label htmlFor="password">Password:</label>
-        <input type="text" id="password" {...register(FormDataKeys.password)} />
+        <input
+          type={passwordType}
+          id="password"
+          {...register(FormDataKeys.password)}
+        />
+        <button
+          type="button"
+          onClick={() =>
+            setPasswordType(passwordType === 'password' ? 'text' : 'password')
+          }
+        >
+          <img
+            src={passwordType === 'password' ? passClosed : passOpened}
+            alt="pass-type"
+          />
+        </button>
         <p>{error.errorPassword ? error.errorPassword : ''}</p>
       </div>
       <div>
         <label htmlFor="password-repeat">Repeat password:</label>
         <input
-          type="text"
+          type={passwordType}
           id="password-repeat"
           {...register(FormDataKeys.passwordRepeat)}
         />

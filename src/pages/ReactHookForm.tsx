@@ -25,9 +25,30 @@ const ReactHookFormPage = () => {
   });
   const { addNewSubmit } = dataListSlice.actions;
 
-  const onSubmit = handleSubmit((data) => {
-    dispatch(addNewSubmit(data));
-    navigate('/', { state: { from: 'react-hook-form' } });
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result?.toString() || '');
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const onSubmit = handleSubmit(async (data) => {
+    const { name, age, email, password, gender, image, country } = data;
+    const image64 = image ? await fileToBase64(image[0]) : '';
+    dispatch(
+      addNewSubmit({
+        name,
+        age,
+        email,
+        password,
+        gender,
+        image: image64,
+        country,
+      })
+    );
+    navigate('/');
   });
 
   return (
@@ -39,7 +60,7 @@ const ReactHookFormPage = () => {
             <FormInput
               key={ind}
               props={item}
-              error={errors[item.name]?.message}
+              error={errors[item.name]?.message as string}
               register={register}
             ></FormInput>
           );

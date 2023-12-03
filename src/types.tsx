@@ -8,7 +8,7 @@ export interface IData {
   email: string;
   password: string;
   gender: string;
-  image?: File;
+  image?: FileList;
   passwordRepeat: string;
   country: string;
 }
@@ -48,18 +48,6 @@ export type FormHookProps = {
   inputType: string;
   name: FormDataKeys;
   inputId: string;
-};
-
-export type File = {
-  0: {
-    lastModified: number;
-    lastModifiedDate: Date;
-    name: string;
-    size: number;
-    type: string;
-    webkitRelativePath: string;
-  };
-  length: number;
 };
 
 export interface InputProps {
