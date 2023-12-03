@@ -1,6 +1,5 @@
 import { object, string, number, boolean, ref, mixed } from 'yup';
 import { store } from '../store/store';
-import { File } from '../types';
 
 const countriesList = store.getState().countriesReducer.countries;
 
@@ -34,17 +33,25 @@ export const validationSchema = object({
     .oneOf([ref('password')], 'Passwords must match'),
   gender: string().required(),
   accept: boolean().oneOf([true], 'You must accept T&C'),
-  image: mixed<File>()
-    .test('extension', 'Image is required', (value) => {
-      return value?.length == 1;
+  image: mixed<FileList>()
+    .required('Field is mandatory')
+    .test('fileRequired', 'Image required', (file) => !!file)
+    .test('fileSize', 'Only image up to 2MB are permitted.', (fileList) => {
+      if (fileList?.length !== 1) {
+        return false;
+      }
+      const file = fileList[0];
+      return !file || file.size <= 2_000_000;
     })
-    .test('fileSize', 'The image size must be up to 200 kB', (file) => {
-      if (!file?.length) return false;
-      return file[0].size <= 20480000;
-    })
-    .test('extension', 'The image must be in PNG or JPEG format', (file) => {
-      if (!file?.length) return false;
-      return file[0].type == 'image/png' || file[0].type === 'image/jpeg';
+    .test('fileType', 'The image must be in png or jpeg format', (fileList) => {
+      if (fileList?.length !== 1) {
+        return false;
+      }
+      const file = fileList[0];
+
+      const allowedTypes = ['image/jpeg', 'image/png'];
+
+      return allowedTypes.includes(file.type);
     }),
   country: string()
     .required('This is a required field')
