@@ -10,6 +10,7 @@ import FormInput from '../components/uncontrolled-form/FormInput';
 import PasswordInput from '../components/uncontrolled-form/PasswordInput';
 import CountryInput from '../components/uncontrolled-form/CountryInput';
 import GenderInput from '../components/uncontrolled-form/GenderInput';
+import imageToBase64 from '../utils/imageToBase64';
 
 const UncontrolledCompFormPage = () => {
   const navigate = useNavigate();
@@ -59,6 +60,11 @@ const UncontrolledCompFormPage = () => {
         },
         { abortEarly: false }
       );
+
+      const image64 =
+        imageInputRef?.current && imageInputRef.current?.files
+          ? await imageToBase64(imageInputRef.current.files[0])
+          : '';
       dispatch(
         addNewSubmit({
           name,
@@ -68,7 +74,7 @@ const UncontrolledCompFormPage = () => {
           passwordRepeat,
           accept,
           gender,
-          image,
+          image: image64,
           country,
         })
       );
@@ -123,8 +129,8 @@ const UncontrolledCompFormPage = () => {
             errorPasswordRepeat: formErrors['passwordRepeat'],
           }}
         />
-        <CountryInput ref={countriesRef} error={formErrors['country']} />
-        <GenderInput ref={genderInputRef} />
+        <CountryInput countryRef={countriesRef} error={formErrors['country']} />
+        <GenderInput genderRef={genderInputRef} />
         <button type="submit">Submit</button>
       </form>
     </>

@@ -10,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from '../utils/validation';
 import CountriesInput from '../components/react-hook-form/CountryInput';
 import GenderInput from '../components/react-hook-form/GenderInput';
+import imageToBase64 from '../utils/imageToBase64';
 
 const ReactHookFormPage = () => {
   const navigate = useNavigate();
@@ -25,18 +26,9 @@ const ReactHookFormPage = () => {
   });
   const { addNewSubmit } = dataListSlice.actions;
 
-  const fileToBase64 = (file: File): Promise<string> => {
-    return new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result?.toString() || '');
-      reader.onerror = (error) => reject(error);
-    });
-  };
-
   const onSubmit = handleSubmit(async (data) => {
     const { name, age, email, password, gender, image, country } = data;
-    const image64 = image ? await fileToBase64(image[0]) : '';
+    const image64 = image ? await imageToBase64(image[0]) : '';
     dispatch(
       addNewSubmit({
         name,

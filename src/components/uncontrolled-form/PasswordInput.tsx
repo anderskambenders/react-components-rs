@@ -1,4 +1,6 @@
-import { MutableRefObject } from 'react';
+import { MutableRefObject, useState } from 'react';
+import passClosed from '../../assets/pass-closed.png';
+import passOpened from '../../assets/pass-closed.png';
 
 export default function InputPassword({
   passwordRef,
@@ -14,14 +16,27 @@ export default function InputPassword({
     errorPasswordRepeat: string | undefined;
   };
 }) {
+  const [passwordType, setPasswordType] = useState('password');
+
   return (
     <div>
       <label htmlFor="password">Password:</label>
-      <input type="text" id="password" ref={passwordRef} />
+      <input type={passwordType} id="password" ref={passwordRef} />
+      <button
+        type="button"
+        onClick={() =>
+          setPasswordType(passwordType === 'password' ? 'text' : 'password')
+        }
+      >
+        <img
+          src={passwordType === 'password' ? passClosed : passOpened}
+          alt="pass-type"
+        />
+      </button>
       <p>{error.errorPassword ? error.errorPassword : ''}</p>
 
       <label htmlFor="password-repeat">Repeat password:</label>
-      <input type="text" id="password-repeat" ref={passwordRepeatRef} />
+      <input type={passwordType} id="password-repeat" ref={passwordRepeatRef} />
       <p>{error.errorPasswordRepeat ? error.errorPasswordRepeat : ''}</p>
       {strength ? <div>Strength: {strength} of 4</div> : <></>}
     </div>

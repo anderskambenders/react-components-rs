@@ -2,10 +2,10 @@ import { useAppSelector } from '../../store/hooks';
 import { MutableRefObject } from 'react';
 
 const CountriesInput = ({
-  ref,
+  countryRef,
   error,
 }: {
-  ref: MutableRefObject<HTMLInputElement | null>;
+  countryRef: MutableRefObject<HTMLInputElement | null>;
   error?: string;
 }) => {
   const countries = useAppSelector((state) => state.countriesReducer.countries);
@@ -19,7 +19,7 @@ const CountriesInput = ({
           className="w-full"
           placeholder="Choose country..."
           list="countries-list"
-          ref={ref}
+          ref={countryRef}
         />
         <datalist id="countries-list">
           {countries.map((country, index) => (

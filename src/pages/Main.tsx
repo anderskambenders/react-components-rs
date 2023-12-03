@@ -1,4 +1,5 @@
 import { useAppSelector } from '../store/hooks';
+import './main.css';
 
 const Main = () => {
   const { dataList } = useAppSelector((state) => state.dataListReducer);
@@ -13,8 +14,8 @@ const Main = () => {
     <>
       {dataList.map((item, index) => (
         <div key={index}>
-          <div>
-            <img src={item.image} />
+          <div className="image__container">
+            <img className="image" src={item.image} />
           </div>
           <ul>
             <li> Name: {item.name}</li>
@@ -24,7 +25,7 @@ const Main = () => {
             <li>Confirm password: {item.passwordRepeat}</li>
             <li>Country: {item.country}</li>
             <li>Gender: {item.gender}</li>
-            <li> Accept T&C: {item.accept} </li>
+            <li> Accept T&C: {item.accept ? 'true' : 'false'} </li>
           </ul>
         </div>
       ))}

@@ -1,3 +1,4 @@
+import NotFoundPage from '../pages/NotFound';
 import Layout from '../pages/Layout';
 import Main from '../pages/Main';
 import ReactHookFormPage from '../pages/ReactHookForm';
@@ -15,6 +16,7 @@ const MainRoutes = () => {
           element={<UncontrolledCompFormPage />}
         ></Route>
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };
