@@ -1,19 +1,29 @@
-import { useAppSelector } from '../store/hooks';
+import { dataListSlice } from '../store/formData.slice';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import './main.css';
 
 const Main = () => {
-  const { dataList } = useAppSelector((state) => state.dataListReducer);
+  const { dataList, newFormSubmitted } = useAppSelector(
+    (state) => state.dataListReducer
+  );
+  const dispatch = useAppDispatch();
+  const { setNewFormSubmitted } = dataListSlice.actions;
 
   if (dataList.length === 0) {
     return <h3>{`You haven't entered any data`}</h3>;
   }
 
-  console.log(dataList);
+  if (newFormSubmitted) {
+    setTimeout(() => dispatch(setNewFormSubmitted(false)), 2000);
+  }
 
   return (
     <>
       {dataList.map((item, index) => (
-        <div key={index}>
+        <div
+          key={index}
+          className={newFormSubmitted && index === 0 ? 'bg-red' : 'bg-transp'}
+        >
           <div className="image__container">
             <img className="image" src={item.image} />
           </div>

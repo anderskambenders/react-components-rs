@@ -3,6 +3,7 @@ import { formData } from '../types';
 
 const initialState: formData = {
   dataList: [],
+  newFormSubmitted: false,
 };
 
 export const dataListSlice = createSlice({
@@ -10,7 +11,11 @@ export const dataListSlice = createSlice({
   initialState,
   reducers: {
     addNewSubmit(state, action) {
-      state.dataList.push(action.payload);
+      state.newFormSubmitted = true;
+      state.dataList.unshift(action.payload);
+    },
+    setNewFormSubmitted(state, action) {
+      state.newFormSubmitted = action.payload;
     },
   },
 });

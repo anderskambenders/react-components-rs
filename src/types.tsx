@@ -27,6 +27,7 @@ export interface IFormData {
 
 export type formData = {
   dataList: IFormData[];
+  newFormSubmitted: boolean;
 };
 
 export type Register = UseFormRegisterReturn<FormDataKeys>;

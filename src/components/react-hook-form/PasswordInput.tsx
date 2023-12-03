@@ -3,7 +3,7 @@ import { FormDataKeys, IData } from '../../types';
 import { useEffect, useState } from 'react';
 import setPasswordStrength from '../../utils/countPasswordStrength';
 import passClosed from '../../assets/pass-closed.png';
-import passOpened from '../../assets/pass-closed.png';
+import passOpened from '../../assets/pass-opened.png';
 
 const PasswordInput = ({
   error,
@@ -31,7 +31,7 @@ const PasswordInput = ({
   }, [watchPassword]);
   return (
     <>
-      <div>
+      <div style={{ position: 'relative' }}>
         <label htmlFor="password">Password:</label>
         <input
           type={passwordType}
@@ -39,12 +39,14 @@ const PasswordInput = ({
           {...register(FormDataKeys.password)}
         />
         <button
+          style={{ position: 'absolute', top: 0, left: 250 }}
           type="button"
           onClick={() =>
             setPasswordType(passwordType === 'password' ? 'text' : 'password')
           }
         >
           <img
+            style={{ height: 15 }}
             src={passwordType === 'password' ? passClosed : passOpened}
             alt="pass-type"
           />

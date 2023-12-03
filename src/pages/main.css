@@ -12,3 +12,7 @@
   object-fit: contain;
 }
 
+.bg-red {
+  background-color: red;
+}
+
