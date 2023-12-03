@@ -1,0 +1,21 @@
+.image__container {
+  height: 250px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 500px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.bg-red {
+  background-color: rgb(153, 106, 106);
+}
+
+.bg-transp {
+  background-color: transparent;
+}
