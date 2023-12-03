@@ -25,7 +25,7 @@ export default function InputPassword({
         <input type={passwordType} id="password" ref={passwordRef} />
         <button
           type="button"
-          style={{ position: 'absolute', top: 0, left: 250 }}
+          style={{ position: 'absolute', top: 25, left: 300 }}
           onClick={() =>
             setPasswordType(passwordType === 'password' ? 'text' : 'password')
           }
@@ -36,12 +36,16 @@ export default function InputPassword({
             alt="pass-type"
           />
         </button>
-        <p>{error.errorPassword ? error.errorPassword : ''}</p>
+        <p style={{ color: 'red' }}>
+          {error.errorPassword ? error.errorPassword : ''}
+        </p>
       </div>
 
       <label htmlFor="password-repeat">Repeat password:</label>
       <input type={passwordType} id="password-repeat" ref={passwordRepeatRef} />
-      <p>{error.errorPasswordRepeat ? error.errorPasswordRepeat : ''}</p>
+      <p style={{ color: 'red' }}>
+        {error.errorPasswordRepeat ? error.errorPasswordRepeat : ''}
+      </p>
       {strength ? <div>Strength: {strength} of 4</div> : <></>}
     </div>
   );

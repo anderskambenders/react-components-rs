@@ -10,9 +10,20 @@ const FormInput = ({
 }: InputProps) => {
   return (
     <div>
-      <label htmlFor={inputId}>{labelText}:</label>
-      <input id={inputId} type={inputType} name={name} ref={inputRef} />
-      <p>{error ? error : ''}</p>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <label style={{ marginRight: 10 }} htmlFor={inputId}>
+          {labelText}:
+        </label>
+        <input
+          style={{ margin: 0 }}
+          id={inputId}
+          type={inputType}
+          name={name}
+          ref={inputRef}
+        />
+      </div>
+
+      <p style={{ color: 'red' }}>{error ? error : ''}</p>
     </div>
   );
 };

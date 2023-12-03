@@ -11,8 +11,8 @@ export default function GenderInput({
   ) => UseFormRegisterReturn<FormDataKeys>;
 }) {
   return (
-    <div>
-      <legend>Gender: </legend>
+    <div style={{ display: 'flex' }}>
+      <legend style={{ marginRight: 10 }}>Gender: </legend>
       <label htmlFor="male">male</label>
       <input
         type="radio"

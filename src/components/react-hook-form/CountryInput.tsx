@@ -15,8 +15,10 @@ const CountriesInput = ({
   const countries = useAppSelector((state) => state.countriesReducer.countries);
   return (
     <div>
-      <div>
-        <label htmlFor="countries">Countries:</label>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <label style={{ marginRight: 10 }} htmlFor="countries">
+          Countries:
+        </label>
         <input
           id="countries"
           type="text"
@@ -33,7 +35,7 @@ const CountriesInput = ({
           ))}
         </datalist>
       </div>
-      {error && <p className="error-message">{error}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 };

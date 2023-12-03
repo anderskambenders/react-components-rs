@@ -11,6 +11,7 @@ import PasswordInput from '../components/uncontrolled-form/PasswordInput';
 import CountryInput from '../components/uncontrolled-form/CountryInput';
 import GenderInput from '../components/uncontrolled-form/GenderInput';
 import imageToBase64 from '../utils/imageToBase64';
+import './form.css';
 
 const UncontrolledCompFormPage = () => {
   const navigate = useNavigate();

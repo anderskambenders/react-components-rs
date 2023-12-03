@@ -15,13 +15,19 @@ const FormInput = ({
 }) => {
   return (
     <div>
-      <label htmlFor={props.inputId}>{props.labelText}:</label>
-      <input
-        id={props.inputId}
-        type={props.inputType}
-        {...register(props.name)}
-      />
-      <p>{error ? error : ''}</p>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <label style={{ marginRight: 10 }} htmlFor={props.inputId}>
+          {props.labelText}:
+        </label>
+        <input
+          style={{ margin: 0 }}
+          id={props.inputId}
+          type={props.inputType}
+          {...register(props.name)}
+        />
+      </div>
+
+      <p style={{ color: 'red' }}>{error ? error : ''}</p>
     </div>
   );
 };

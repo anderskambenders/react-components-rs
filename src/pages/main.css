@@ -13,6 +13,9 @@
 }
 
 .bg-red {
-  background-color: red;
+  background-color: rgb(153, 106, 106);
 }
 
+.bg-transp {
+  background-color: transparent;
+}
